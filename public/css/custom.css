@@ -1,0 +1,11 @@
+.navbar{
+    font-family: NotoSansDemilight,"Microsoft JhengHe","微軟正黑體", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.navbar-header .navbar-brand{
+    font-weight: bold;
+    color: #000000;
+}
+.glyphicon-heart{
+    color: red;
+    top: 2px;
+}

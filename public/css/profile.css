@@ -1,0 +1,18 @@
+.previewContainer{
+	/*position: relative;*/
+	/*vertical-align: top;*/
+	/*display: inline-block;*/
+	overflow: hidden;
+	margin: auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	width: 100px;
+	height: 100px;
+}
+#profileImg{
+	display: block;
+	width: 100%;
+}
+.jcrop-holder{
+	margin: auto;
+}

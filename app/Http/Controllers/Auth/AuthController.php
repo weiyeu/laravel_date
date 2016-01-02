@@ -86,7 +86,7 @@ class AuthController extends Controller
             'confirmation_code' => $confirmation_code,
         );
 
-        Mail::send('emails.email_verify',$data,function($m){
+        Mail::queue('emails.email_verify',$data,function($m){
             $m->from('chenweiyeu@gmail.com','Learning Laravel');
             $m->to('chenweiyeu@gmail.com')->subject('Verify your mail');
         });

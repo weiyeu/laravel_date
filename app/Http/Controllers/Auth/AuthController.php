@@ -85,7 +85,7 @@ class AuthController extends Controller
         $data = array(
             'confirmation_code' => $confirmation_code,
         );
-
+        // remember to use cmd : 'php artisan queue:listen' to turn on the queue job function
         Mail::queue('emails.email_verify',$data,function($m){
             $m->from('chenweiyeu@gmail.com','Learning Laravel');
             $m->to('chenweiyeu@gmail.com')->subject('Verify your mail');

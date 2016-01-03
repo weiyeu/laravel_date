@@ -26,7 +26,7 @@ class AuthController extends Controller
 
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
-
+    protected $redirectPath = 'home';
     protected $loginPath = 'users/login';
     protected $failed_errors = '你在盜帳號嗎小垃圾?';
 
@@ -59,12 +59,15 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         $message = [
-            'unique' => '電子信箱不可重複阿!!!'
+            'nickName.required' => '暱稱不可以空白唷',
+            'email.unique' => '電子信箱不可重複阿!!!',
+            'password.confirmed' => '密碼確認不一致阿!!!',
         ];
         return Validator::make($data, [
-            'name' => 'required|max:255',
+            'nickName' => 'required|max:255',
+            'realName' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
+            'password' => 'required|confirmed|min:4',
         ], $message);
     }
 
@@ -76,18 +79,23 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
+        // process uploaded image
+        $path = $this->processUploadedImg($data);
+        // generate confirmation code
         $confirmation_code = str_random(30);
+        // create user
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'confirmation_code' => $confirmation_code,
         ]);
-
+        // confirmation code for mail
         $data = array(
             'confirmation_code' => $confirmation_code,
         );
         // remember to use cmd : 'php artisan queue:listen' to turn on the queue job function
+        // mail to user through queue job
         Mail::queue('emails.email_verify', $data, function ($m) {
             $m->from('chenweiyeu@gmail.com', 'Learning Laravel');
             $m->to('chenweiyeu@gmail.com')->subject('Verify your mail');
@@ -122,7 +130,7 @@ class AuthController extends Controller
      * @param  Request $request
      * @return \Illuminate\Http\Response
      */
-    protected function ajaxCheckEmail(Request $request)
+    public function ajaxCheckEmail(Request $request)
     {
         // get input email
         $email = $request->input('email');
@@ -135,5 +143,23 @@ class AuthController extends Controller
             'used' => $email_used
         );
         return response()->json($arr);
+    }
+
+    protected function processUploadedImg(array $data)
+    {
+        $destinationPath = "C:\\xampp\\htdocs\\laravel_date\\public\\resource\\profile_image";
+        $file_name = uniqid("upload");
+        $path = 'path is not set';
+        if (array_key_exists('uploadImg', $data)) {
+            $imgFile = $data['uploadImg'];
+            // check image file or not
+            if (getimagesize($imgFile->getPathname()) !== false) {
+                dd(getimagesize($imgFile->getPathname()));
+            } else {
+                dd(getimagesize($imgFile->getPathname()));
+            }
+            $path = $imgFile->move($destinationPath, $file_name);
+        }
+        return $path;
     }
 }

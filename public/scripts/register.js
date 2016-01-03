@@ -75,7 +75,7 @@ function validateInput(node, nodeName, warnIcon, successIcon) {
                         // set alert type
                         cAlert.addClass('c-alert-danger');
                     }
-                    // input data is not used 
+                    // input data is not used
                     else {
                         // insert successMessage into alert element
                         cAlert.html(successMessage);

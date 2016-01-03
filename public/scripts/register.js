@@ -53,7 +53,8 @@ function validateInput(node, nodeName, warnIcon, successIcon) {
     }
     //pass initial check
     else {
-        cAlert.html('<i class="fa fa-circle-o-notch fa-spin"></i>');
+        // insert waiting icon into alert element
+        cAlert.html('<i class="fa fa-spinner fa-spin"></i>');
         // ajax check input valid or not
         var _token = $('input[name=_token]').val();
         var url = '/laravel_date/public/users/ajax-check-email';

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Match results list</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- bootstrap css -->
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<!-- font-awesom -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<!-- common css -->
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<!-- custom css -->
+	<link rel="stylesheet" type="text/css" href="css/match_result_list.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<!-- bootstrap javascript -->
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<!-- common javascript -->
+	<script type="text/javascript" src="scripts/common.js"></script>
+	<!-- custom javascript -->
+	<script type="text/javascript" src="scripts/match_result_list.js"></script>
+</head>
+<body>
+	<!-- navigation bar -->
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#homeNavbar">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>                        
+				</button>
+				<a class="navbar-brand" href="#"><i class="fa fa-heart"></i> 一起來晚餐吧!</a>
+			</div>
+			<div class="collapse navbar-collapse" id="homeNavbar">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="active"><a href="home.html"><span class="glyphicon glyphicon-home"></span> 首頁</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-info-sign"></span> 關於</a></li>
+					<li><a href="profile.html"><span class="glyphicon glyphicon-user"></span>申請帳號</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> 登入</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- main container -->
+	<div class="container">
+		<div class="row">
+			<div class="jumbotron col-md-12" >
+				<h1 class="text-center text-bold">晚餐列表 <i class="fa fa-heart"></i></h1>
+			</div>
+		</div>
+		<div class="list-group">
+			<a href="match_result.html" class="list-group-item active-shine">2015/12/31 台北 <span class="pull-right"><strong>new</strong> <i class="fa fa-bell"></i></span></a>
+			<a href="#" class="list-group-item list-group-item-info">2015/12/30 新竹</a>
+			<a href="#" class="list-group-item">2015/12/29 新竹</a>
+			<a href="#" class="list-group-item list-group-item-info">2015/12/28 桃園</a>
+			<a href="#" class="list-group-item">2015/12/27 台北</a>
+		</div>
+	</div>
+	<!-- footer -->
+	<footer class="container-fluid text-center">
+		<p>&copy 2015 Dating</p>
+	</footer>
+</body>
+</html>

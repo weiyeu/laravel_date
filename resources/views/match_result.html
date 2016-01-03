@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Match result</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- bootstrap css -->
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<!-- font-awesom -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<!-- common css -->
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<!-- custom css -->
+	<link rel="stylesheet" type="text/css" href="css/match_result.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<!-- bootstrap javascript -->
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<!-- common javascript -->
+	<script type="text/javascript" src="scripts/common.js"></script>
+	<!-- custom javascript -->
+	<script type="text/javascript" src="scripts/match_result.js"></script>
+</head>
+<body>
+	<!-- navigation bar -->
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#homeNavbar">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>                        
+				</button>
+				<a class="navbar-brand" href="#"><i class="fa fa-heart"></i> 一起來晚餐吧!</a>
+			</div>
+			<div class="collapse navbar-collapse" id="homeNavbar">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="active"><a href="home.html"><span class="glyphicon glyphicon-home"></span> 首頁</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-info-sign"></span> 關於</a></li>
+					<li><a href="profile.html"><span class="glyphicon glyphicon-user"></span>申請帳號</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> 登入</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- main container -->
+	<div class="container">
+		<div class="row">
+			<div class="jumbotron col-md-12" >
+				<h1 class="text-center text-bold">晚餐內容 <i class="fa fa-heart"></i></h1>
+			</div>
+		</div>
+		<!-- matched person -->
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="list-header">
+					<div class="list-brand">晚餐資訊</div>
+					<button class="btn btn-default list-btn" data-toggle="slide" data-target="#pill"><i class="fa fa-th-list"></i></button>
+				</div>
+				<ul class="nav nav-pills nav-justified list-collapse" id="pill">
+					<li class="active"><a href="#">晚餐對象</a></li>
+					<li><a href="#">我的選項</a></li>
+					<li><a href="#">晚餐狀態</a></li>
+					<li><a href="#">驚喜一下</a></li>
+				</ul>
+			</div>
+			<div class="panel-body inner">
+				<!-- profile image and title -->
+				<div class="col-md-12 put-center">
+					<img class="profileImg" src="Lighthouse.jpg">
+					<h3 class="" style="color:gray">煞氣a小明</h3>
+					<div class="underline-lightgray" style="margin-bottom:2em"></div>
+				</div>
+				<!-- email -->
+				<div class="col-md-4">
+					<div class="panel panel-default no-border">
+						<div class="panel-body inner put-center">
+							<div class="text-super-large">
+								信
+								<i class="fa fa-envelope-o"></i>
+								箱
+							</div>
+							<p>Hello@hellomail.com</p>
+						</div>
+					</div>
+				</div>
+				<!-- hobby -->
+				<div class="col-md-4">
+					<div class="panel panel-default no-border">
+						<div class="panel-body inner put-center">
+							<div class="text-super-large">
+								興
+								<i class="fa fa-paper-plane-o"></i>
+								趣
+							</div>
+							<p>看動漫</p>
+						</div>
+					</div>
+				</div>
+				<!-- sex -->
+				<div class="col-md-4">
+					<div class="panel panel-default no-border">
+						<div class="panel-body inner put-center">
+							<div class="text-super-large">
+								性
+								<i class="fa fa-venus-mars"></i>
+								別
+							</div>
+							<p>男</p>
+						</div>
+					</div>
+				</div>
+				<!-- dress code -->
+				<div class="col-md-4">
+					<div class="panel panel-default no-border">
+						<div class="panel-body inner put-center">
+							<div class="text-super-large">
+								裝
+								<span class="glyphicon glyphicon-sunglasses"></span>
+								扮
+							</div>
+							<p>穿什麼都好</p>
+						</div>
+					</div>
+				</div>
+				<!-- meal type -->
+				<div class="col-md-4">
+					<div class="panel panel-default no-border">
+						<div class="panel-body inner put-center">
+							<div class="text-super-large">
+								餐
+								<i class="fa fa-cutlery"></i>
+								點
+							</div>
+							<p>西餐</p>
+						</div>
+					</div>
+				</div>
+				<!-- time duration -->
+				<div class="col-md-4">
+					<div class="panel panel-default no-border">
+						<div class="panel-body inner put-center">
+							<div class="text-super-large">
+								時
+								<i class="fa fa-hourglass-half"></i>
+								間
+							</div>
+							<p>隨時奉陪 到 天荒地老</p>
+						</div>
+					</div>
+				</div>
+				<!-- self introduction 0 -->
+				<div class="col-md-6">
+					<div class="panel panel-default no-border">
+						<div class="panel-body inner put-center">
+							<div class="text-super-large">
+								輕輕
+								<i class="fa fa-smile-o"></i>
+								的說
+							</div>
+							<div class="text-area">
+								<p>很高興可以跟你一起吃晚餐</p>
+								<p>希望你可以請客</p>
+								<p>記得多帶一點錢唷:)</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- self introduction 1 -->
+				<div class="col-md-6">
+					<div class="panel panel-default no-border">
+						<div class="panel-body inner put-center">
+							<div class="text-super-large">
+								自我
+								<i class="fa fa-reddit-alien"></i>
+								介紹
+							</div>
+							<p>我是一個大帥哥</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- user selection -->
+	<div class="row">
+
+	</div>
+</div>
+<!-- footer -->
+<footer class="container-fluid text-center">
+	<p>&copy 2015 Dating</p>
+</footer>
+</body>
+</html>

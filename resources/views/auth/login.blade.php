@@ -1,53 +1,46 @@
-    @extends('custom_master')
-    @section('title', '登入')
-
-    @section('content')
-        <div class="container col-md-6 col-md-offset-3">
-            @if(session('emailConfirmedMessage'))
-               <p>{{ session('emailConfirmedMessage') }}</p>
-            @endif
-            <div class="well well bs-component">
-                <form class="form-horizontal" method="post">
-
-                    @foreach ($errors->all() as $error)
-                        <p class="alert alert-danger">{{ $error }}</p>
-                    @endforeach
-
-                     {!! csrf_field() !!}
-
-                    <fieldset>
-                        <legend>Login</legend>
-                        <div class="form-group">
-                            <label for="name" class="col-lg-2 control-label">Name</label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control" id="name" placeholder="Name" name="name" value="{{ old('name') }}">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email" class="col-lg-2 control-label">Email</label>
-                            <div class="col-lg-10">
-                                <input type="email" class="form-control" id="email" placeholder="Email" name="email" value="{{ old('email') }}">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password" class="col-lg-2 control-label">Password</label>
-                            <div class="col-lg-10">
-                                <input type="password" class="form-control"  name="password">
-                            </div>
-                        </div>
-
-
-
-                        <div class="form-group">
-                            <div class="col-lg-10 col-lg-offset-2">
-                                <button type="reset" class="btn btn-default">Cancel</button>
-                                <button type="submit" class="btn btn-primary">Login</button>
-                            </div>
-                        </div>
-                    </fieldset>
-                </form>
-            </div>
-        </div>
-    @endsection
+@extends('master')
+@section('title','Login')
+@section('custom css')
+<link rel="stylesheet" type="text/css" href="css/login.css">
+@endsection
+@section('custom js')
+<script type="text/javascript" src="scripts/login.js"></script>
+@endsection
+@section('content')
+	<div class="container">
+		<div class="jumbotron" >
+			<h1 class="text-center text-bold">登入 <i class="fa fa-heart"></i></h1>
+		</div>
+		<div class="row">
+			<div class="col-sm-offset-3 col-sm-6">
+				<div class="panel panel-default">
+					<div class="panel-body inner">
+						<h4 class="panel-heading col-sm-12" style="text-align:center">:)</h4>
+						<form role="form">
+							<!-- account -->
+							<div class="form-group">
+								<label class="control-label" for="account">*帳號:</label>
+								<input type="text" class="form-control" id="account" placeholder="Hello@hellomail.com">
+							</div>
+							<!-- password -->
+							<div class="form-group">
+								<label class="control-label" for="password">*密碼:</label>
+								<input type="password" class="form-control" id="password" placeholder="秘密">
+							</div>
+							<!-- email login button -->
+							<div class="form-group">
+								<button type="submit" class="btn btn-info btn-block"><i class="fa fa-envelope"></i> 登入</button>
+							</div>
+							<!-- facebook login button -->
+							<div class="form-group">
+								<button type="button" class="btn btn-primary btn-block"><i class="fa fa-facebook-square"></i> 使用FACEBOOK登入</button>
+							</div>
+						</form>
+						<a href="#">忘記密碼</a>
+						<a href="#" class="pull-right">重新註冊</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+@endsection

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Forum</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- bootstrap css -->
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<!-- font-awesom -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<!-- common css -->
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<!-- custom css -->
+	<link rel="stylesheet" type="text/css" href="css/forum.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<!-- bootstrap javascript -->
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<!-- custom javascript -->
+	<script type="text/javascript" src="scripts/forum.js"></script>
+</head>
+<body>
+	<!-- navbar -->
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#homeNavbar">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>                        
+				</button>
+				<a class="navbar-brand" href="#"><i class="fa fa-heart"></i> 一起來晚餐吧!</a>
+			</div>
+			<div class="collapse navbar-collapse" id="homeNavbar">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span> 首頁</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-info-sign"></span> 關於</a></li>
+					<li><a href="profile.html"><span class="glyphicon glyphicon-user"></span>申請帳號</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> 登入</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- main container -->
+	<div class="container">
+		<!-- first row -->
+		<div class="row">
+			<!-- today hot -->
+			<div class="col-sm-4">
+				<a class="cancel-decoration" href="#">
+					<div class="panel panel-default">
+						<div class="panel-heading text-center">今日熱門</div>
+						<div class="panel-body text-center">
+							<span class="glyphicon glyphicon-star text-super-large" style="color:gold"></span>
+							<p class="text-large" style="color:black"><br>看看今天最熱門的文章吧!</p>
+						</div>
+					</div>
+				</a>
+			</div>
+			<!-- review after dinner -->
+			<div class="col-sm-4">
+				<a class="cancel-decoration" href="#">
+					<div class="panel panel-default">
+						<div class="panel-heading text-center">餐後心情</div>
+						<div class="panel-body text-center">
+							<i class="fa fa-heart text-super-large"></i>
+							<p class="text-large" style="color:black"><br>分享今日餐聚的心情</p>
+						</div>
+					</div>
+				</a>
+			</div>
+			<!-- food share -->
+			<div class="col-sm-4">
+				<a class="cancel-decoration" href="#">
+					<div class="panel panel-default">
+						<div class="panel-heading text-center">美食分享</div>
+						<div class="panel-body text-center">
+							<span class="glyphicon glyphicon-cutlery text-super-large" style="color:black"></span>
+							<p class="text-large" style="color:black"><br>好吃的餐點真讓人愉悅呢!</p>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+		<!-- second row -->
+		<div class="row">
+			<!-- music -->
+			<div class="col-sm-4">
+				<a class="cancel-decoration" href="#">
+					<div class="panel panel-default">
+						<div class="panel-heading text-center">美妙旋律</div>
+						<div class="panel-body text-center">
+							<span class="glyphicon glyphicon-music text-super-large" style="color:DeepSkyBlue"></span>
+							<p class="text-large" style="color:black"><br>聽到了好聽的音樂</p>
+						</div>
+					</div>
+				</a>
+			</div>
+			<!-- talk -->
+			<div class="col-sm-4">
+				<a class="cancel-decoration" href="#">
+					<div class="panel panel-default">
+						<div class="panel-heading text-center">我想抒發</div>
+						<div class="panel-body text-center">
+							<span class="glyphicon glyphicon-bullhorn text-super-large" style="color:gray"></span>
+							<p class="text-large" style="color:black"><br>這就是我的情緒與想法!</p>
+						</div>
+					</div>
+				</a>
+			</div>
+			<!-- fashion -->
+			<div class="col-sm-4">
+				<a class="cancel-decoration" href="#">
+					<div class="panel panel-default">
+						<div class="panel-heading text-center">時尚潮流</div>
+						<div class="panel-body text-center">
+							<span class="glyphicon glyphicon-sunglasses text-super-large" style="color:darkOrange"></span>
+							<p class="text-large" style="color:black"><br>這樣穿搭最好看</p>
+						</div>
+					</div>
+				</a>
+			</div>
+			<!-- questions -->
+			<div class="col-sm-4">
+				<a class="cancel-decoration" href="#">
+					<div class="panel panel-default">
+						<div class="panel-heading text-center">我有疑問</div>
+						<div class="panel-body text-center">
+							<span class="glyphicon glyphicon-question-sign text-super-large" style=""></span>
+							<p class="text-large" style="color:black"><br>我想問...</p>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	<!-- articles -->
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-offset-1 col-sm-10">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<h1>今日熱門</h1>
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th class="col-sm-4">標題</th>
+									<th class="col-sm-3">作者</th>
+									<th class="col-sm-3">分類</th>
+									<th class="col-sm-1"><span class="glyphicon glyphicon-comment" style="color:gray"></span></th>
+									<th class="col-sm-1"><span class="glyphicon glyphicon-heart" style="color:gray"></span></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="info">
+									<td>第一次跟女生吃飯</td>
+									<td>煞氣a小明</td>
+									<td>餐後心情</td>
+									<td>2350</td>
+									<td>1822</td>
+								</tr>
+								<tr>
+									<td>吃完飯就沒下文了...</td>
+									<td>BWS夠狂</td>
+									<td>我想抒發</td>
+									<td>2150</td>
+									<td>1622</td>
+								</tr>
+								<tr class="info">
+									<td>活大自助餐真美味</td>
+									<td>電機狂人</td>
+									<td>美食分享</td>
+									<td>1232</td>
+									<td>822</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- footer -->
+	<footer class="container-fluid text-center">
+		<p>&copy 2015 Dating</p>
+	</footer>
+</body>
+</html>

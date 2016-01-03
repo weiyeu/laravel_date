@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Response;
 use Validator;
 use DB,Mail,Redirect,Session;
 use App\Http\Controllers\Controller;
@@ -92,6 +94,12 @@ class AuthController extends Controller
         });
         return $user;
     }
+    /**
+     * Verify the user's email address by check confirmation code
+     *
+     * @param  String $confirmation_code
+     * @return \Illuminate\Http\RedirectResponse
+     */
     protected function verifyMail($confirmation_code){
         $user = User::whereconfirmation_code($confirmation_code)->first();
         // if user has been confirmed
@@ -104,5 +112,11 @@ class AuthController extends Controller
         $user->save();
         Session::flash('emailConfirmedMessage','Thanks for your email confirmation! You may login now :)');
         return Redirect::to('users/login');
+    }
+    protected function ajaxCheckEmail(Request $request){
+        $arr = array(
+            'msg' => 'hello'
+        );
+        return response()->json($arr);
     }
 }

@@ -1,12 +1,30 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <title> @yield('title') </title>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Include roboto.css to use the Roboto web font, material.css to include the theme and ripples.css to style the ripple effect -->
-    <link href="/css/roboto.min.css" rel="stylesheet">
-    <link href="/css/material.min.css" rel="stylesheet">
-    <link href="/css/ripples.min.css" rel="stylesheet">
+    <title>@yield('title')</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!-- Jcrop css -->
+    <link rel="stylesheet" href="/laravel_date/public/css/jquery.Jcrop.css" type="text/css" />
+    <!-- font-awesom -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- common css -->
+    <link rel="stylesheet" type="text/css" href="/laravel_date/public/css/common.css">
+    <!-- custom css -->
+    @yield('custom css')
 
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- bootstrap javascript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!-- Jcrop -->
+    <script src="/laravel_date/public/scripts/jquery.Jcrop.js"></script>
+    <!-- common javascript -->
+    <script type="text/javascript" src="/laravel_date/public/scripts/common.js"></script>
+    <!-- custom javascript -->
+    @yield('custom js')
 </head>
 <body>
 
@@ -14,17 +32,11 @@
 
 @yield('content')
 
-<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- footer -->
+<footer class="container-fluid text-center">
+    <p>&copy 2015 Dating</p>
+</footer>
 
-<script src="/js/ripples.min.js"></script>
-<script src="/js/material.min.js"></script>
-<script>
-    $(document).ready(function() {
-        // This command is used to initialize some elements and make them work properly
-        $.material.init();
-    });
-</script>
 </body>
 
 </html>

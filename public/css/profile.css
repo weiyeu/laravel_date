@@ -13,6 +13,18 @@
 	display: block;
 	width: 100%;
 }
-.jcrop-holder{
+.jcrop-holder {
+	max-width: 100%;
 	margin: auto;
 }
+.jcrop-tracker{
+	max-width: 100%;
+}
+.list-group a{
+	display: block;
+	color:#636567;
+}
+[class*="col-"]{
+	padding-bottom: 15px;
+}
+

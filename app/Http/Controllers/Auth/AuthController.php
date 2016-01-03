@@ -114,8 +114,11 @@ class AuthController extends Controller
         return Redirect::to('users/login');
     }
     protected function ajaxCheckEmail(Request $request){
+        $email = $request->input('email');
         $arr = array(
-            'msg' => 'hello'
+            'msg' => 'hello',
+            'email' => $email,
+            'used' => false
         );
         return response()->json($arr);
     }

@@ -3,9 +3,7 @@ function ajaxValidate(url, _token, data) {
         method: 'POST',
         url: url,
         dataType: 'json',
-        data: {
-            '_token': _token
-        }
+        data: data
     });
 }
 /**
@@ -33,21 +31,12 @@ function validateInput(node, nodeName, warnIcon, successIcon) {
     var warnMessage = '<strong>' + warnIcon + ' 這個' + nodeName + '已被使用' + '</strong>';
     // successMessage
     var successMessage = '<strong>' + successIcon + ' 這個' + nodeName + '讚喔' + '</strong>';
+    // errorMessage
+    var errorMessage = '<strong>' + warnIcon + ' 連不上線耶' + '</strong>';
+    // formatValid flag
+    var formatValid = (nodeName == 'Email') ? checkEmailFormat(node.val()) : true;
     // reset alert classes
     cAlert.removeClass('c-alert-danger c-alert-success');
-    // email validation
-    var _token = $('input[name=_token]').val();
-    var url = '/laravel_date/public/users/ajax-check-email';
-    var emailUsed = false;
-    $.when(ajaxValidate(url, _token, ''))
-        .always(function (data, status, jxhr) {
-            if (status == 'success') {
-                alert(data['msg']);
-            } else {
-                alert('Fail');
-            }
-        });
-    var emailNotValid = (nodeName == 'Email') && !validateEmail(node.val());
     // if empty
     if (node.val().length < 1) {
         // insert warnMessage into alert element
@@ -55,26 +44,46 @@ function validateInput(node, nodeName, warnIcon, successIcon) {
         // set alert type
         cAlert.addClass('c-alert-danger');
     }
-    // check Email format
-    else if (emailNotValid) {
+    // check input format
+    else if (!formatValid) {
         // insert warnMessage into alert element
         cAlert.html(notValidMessage);
         // set alert type
         cAlert.addClass('c-alert-danger');
     }
-    // if nickName used
-    else if (false) {
-        // insert warnMessage into alert element
-        cAlert.html(warnMessage);
-        // set alert type
-        cAlert.addClass('c-alert-danger');
-    }
-    // if nickName not used
+    //pass initial check
     else {
-        // insert successMessage into alert element
-        cAlert.html(successMessage);
-        // set alert type
-        cAlert.addClass('c-alert-success');
+        cAlert.html('<i class="fa fa-circle-o-notch fa-spin"></i>');
+        // ajax check input valid or not
+        var _token = $('input[name=_token]').val();
+        var url = '/laravel_date/public/users/ajax-check-email';
+        var emailUsed = false;
+        var ajaxData = {
+            '_token': _token,
+            'email': node.val()
+        };
+        $.when(ajaxValidate(url, _token, ajaxData))
+            .always(function (data, status, jxhr) {
+                if (status == 'success') {
+                    if (data['used']) {
+                        // insert warnMessage into alert element
+                        cAlert.html(warnMessage);
+                        // set alert type
+                        cAlert.addClass('c-alert-danger');
+                    }
+                    else {
+                        // insert successMessage into alert element
+                        cAlert.html(successMessage);
+                        // set alert type
+                        cAlert.addClass('c-alert-success');
+                    }
+                } else {
+                    // insert warnMessage into alert element
+                    cAlert.html(errorMessage);
+                    // set alert type
+                    cAlert.addClass('c-alert-danger');
+                }
+            });
     }
     // slide down warnMessage to show it
     cAlert.slideDown(500);

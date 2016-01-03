@@ -2,7 +2,6 @@ function ajaxValidate(url, _token, data) {
     return $.ajax({
         method: 'POST',
         url: url,
-        _token: _token,
         dataType: 'json',
         data: {
             '_token': _token

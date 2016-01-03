@@ -55,7 +55,7 @@ function validateInput(node, nodeName, warnIcon, successIcon) {
     else {
         // insert waiting icon into alert element
         cAlert.html('<i class="fa fa-spinner fa-spin"></i>');
-        // ajax check input valid or not
+        // ajax check variables
         var _token = $('input[name=_token]').val();
         var url = '/laravel_date/public/users/ajax-check-email';
         var emailUsed = false;
@@ -63,21 +63,26 @@ function validateInput(node, nodeName, warnIcon, successIcon) {
             '_token': _token,
             'email': node.val()
         };
+        // ajax check input data is used or not
         $.when(ajaxValidate(url, _token, ajaxData))
             .always(function (data, status, jxhr) {
+                // ajax succeed
                 if (status == 'success') {
+                    // input data is used
                     if (data['used']) {
                         // insert warnMessage into alert element
                         cAlert.html(warnMessage);
                         // set alert type
                         cAlert.addClass('c-alert-danger');
                     }
+                    // input data is not used 
                     else {
                         // insert successMessage into alert element
                         cAlert.html(successMessage);
                         // set alert type
                         cAlert.addClass('c-alert-success');
                     }
+                // ajax fail
                 } else {
                     // insert warnMessage into alert element
                     cAlert.html(errorMessage);

@@ -23,8 +23,6 @@ Route::post('/comment', 'CommentsController@newComment');
 Route::get('users/register', 'Auth\AuthController@getRegister');
 Route::post('users/register', 'Auth\AuthController@postRegister');
 Route::post('users/ajax-check-input-used', 'Auth\AuthController@ajaxCheckInputUsed');
-Route::get('users/ajax-check-input-used', 'Auth\AuthController@ajaxCheckInputUsed');
-
 Route::get('users/logout', 'Auth\AuthController@getLogout');
 Route::get('users/login', 'Auth\AuthController@getLogin');
 Route::post('users/login', 'Auth\AuthController@postLogin');

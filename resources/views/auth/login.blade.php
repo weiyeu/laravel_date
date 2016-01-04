@@ -16,16 +16,16 @@
 				<div class="panel panel-default">
 					<div class="panel-body inner">
 						<h4 class="panel-heading col-sm-12" style="text-align:center">:)</h4>
-						<form role="form">
-							<!-- account -->
+						<form role="form" method="post">
+							<!-- Email -->
 							<div class="form-group">
-								<label class="control-label" for="account">*帳號:</label>
-								<input type="text" class="form-control" id="account" placeholder="Hello@hellomail.com">
+								<label class="control-label" for="email">*信箱:</label>
+								<input type="email" class="form-control" id="email" name="email" placeholder="Hello@hellomail.com" required>
 							</div>
 							<!-- password -->
 							<div class="form-group">
 								<label class="control-label" for="password">*密碼:</label>
-								<input type="password" class="form-control" id="password" placeholder="秘密">
+								<input type="password" class="form-control" id="password" name="password" placeholder="秘密" required minlength="4">
 							</div>
 							<!-- email login button -->
 							<div class="form-group">

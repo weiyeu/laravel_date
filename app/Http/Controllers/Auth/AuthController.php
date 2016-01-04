@@ -6,10 +6,11 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Response;
 use Validator;
-use DB, Mail, Redirect, Session;
+use DB, Mail, Redirect, Session, App;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use App\Library\ImageManipulator;
 
 class AuthController extends Controller
 {
@@ -29,15 +30,17 @@ class AuthController extends Controller
     protected $redirectPath = 'home';
     protected $loginPath = 'users/login';
     protected $failed_errors = '你在盜帳號嗎小垃圾?';
+    protected $request;
 
     /**
      * Create a new authentication controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
         $this->middleware('guest', ['except' => 'getLogout']);
+        $this->request = $request;
     }
 
 //    public function getRegister()
@@ -80,14 +83,22 @@ class AuthController extends Controller
     protected function create(array $data)
     {
         // process uploaded image
-        $path = $this->processUploadedImg($data);
+        $path = $this->processUploadedImg($this->request);
         // generate confirmation code
         $confirmation_code = str_random(30);
         // create user
         $user = User::create([
-            'name' => $data['name'],
+            'nickname' => $data['nickName'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'real_name' => $data['realName'],
+            'sex' => $data['sex'],
+            'year' => $data['year'],
+            'month' => $data['month'],
+            'date' => $data['date'],
+            'phone_number' => $data['phoneNumber'],
+            'self_introduction' => $data['selfIntroduction'],
+            'profile_image_path' => '',
             'confirmation_code' => $confirmation_code,
         ]);
         // confirmation code for mail
@@ -145,20 +156,20 @@ class AuthController extends Controller
         return response()->json($arr);
     }
 
-    protected function processUploadedImg(array $data)
+    protected function processUploadedImg(Request $request)
     {
         $destinationPath = "C:\\xampp\\htdocs\\laravel_date\\public\\resource\\profile_image";
-        $file_name = uniqid("upload");
+        $file_name = uniqid("upload").'.jpg';
         $path = 'path is not set';
-        if (array_key_exists('uploadImg', $data)) {
-            $imgFile = $data['uploadImg'];
+        if ($request->hasFile('uploadImg')) {
+            $imgFile = $request->file('uploadImg');
             // check image file or not
-            if (getimagesize($imgFile->getPathname()) !== false) {
-                dd(getimagesize($imgFile->getPathname()));
-            } else {
+            if(getimagesize($imgFile->getPathname()) !== false){
+//                dd(getimagesize($imgFile->getPathname()));
+            }else{
                 dd(getimagesize($imgFile->getPathname()));
             }
-            $path = $imgFile->move($destinationPath, $file_name);
+            $path = $request->file('uploadImg')->move($destinationPath,$file_name);
         }
         return $path;
     }

@@ -22,6 +22,9 @@
 				<div class="panel panel-default">
 					<div class="panel-body inner">
 						<h4 class="panel-heading" style="background:white">填寫基本資料</h4>
+						@foreach ($errors->all() as $error)
+                            <p class="alert alert-danger">{{ $error }}</p>
+                        @endforeach
 						<form class="form-horizontal" method="post" enctype="multipart/form-data">
     	                    {!! csrf_field() !!}
 							<!-- profileImg  -->

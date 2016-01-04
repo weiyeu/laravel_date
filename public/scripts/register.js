@@ -35,6 +35,8 @@ function validateInput(node, nodeName, warnIcon, successIcon) {
     var errorMessage = '<strong>' + warnIcon + ' 連不上線耶' + '</strong>';
     // formatValid flag
     var formatValid = (nodeName == 'Email') ? checkEmailFormat(node.val()) : true;
+    //
+    var inputName = (nodeName == "Email") ? 'email' : 'nickname';
     // reset alert classes
     cAlert.removeClass('c-alert-danger c-alert-success');
     // if empty
@@ -57,11 +59,12 @@ function validateInput(node, nodeName, warnIcon, successIcon) {
         cAlert.html('<i class="fa fa-spinner fa-spin"></i>');
         // ajax check variables
         var _token = $('input[name=_token]').val();
-        var url = '/laravel_date/public/users/ajax-check-email';
-        var emailUsed = false;
+        var url = '/laravel_date/public/users/ajax-check-input-used';
+        var inputUsed = false;
         var ajaxData = {
             '_token': _token,
-            'email': node.val()
+            'inputUnderCheck': node.val(),
+            'inputName' : inputName
         };
         // ajax check input data is used or not
         $.when(ajaxValidate(url, _token, ajaxData))

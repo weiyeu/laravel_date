@@ -63,11 +63,12 @@ class AuthController extends Controller
     {
         $message = [
             'nickName.required' => '暱稱不可以空白唷',
+            'nickName.unique' => '暱稱已經被使用了!!!',
             'email.unique' => '電子信箱不可重複阿!!!',
             'password.confirmed' => '密碼確認不一致阿!!!',
         ];
         return Validator::make($data, [
-            'nickName' => 'required|max:255',
+            'nickName' => 'required|max:255|unique:users',
             'realName' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:4',
@@ -136,22 +137,24 @@ class AuthController extends Controller
     }
 
     /**
-     * ajax check register Email is used or not
+     * ajax check register input data is used or not
      *
      * @param  Request $request
      * @return \Illuminate\Http\Response
      */
-    public function ajaxCheckEmail(Request $request)
+    public function ajaxCheckInputUsed(Request $request)
     {
-        // get input email
-        $email = $request->input('email');
+        // get input under check
+        $inputUnderCheck = $request->input('inputUnderCheck');
+        // get input type
+        $inputName = $request->input('inputName');
         // check email used or not
-        $email_used = User::whereEmail($email)->count() > 0;
+        $used = User::where($inputName,$inputUnderCheck)->count() > 0;
         // response data json
         $arr = array(
             'msg' => 'hello',
-            'email' => $email,
-            'used' => $email_used
+            'input' => $inputUnderCheck,
+            'used' => $used
         );
         return response()->json($arr);
     }

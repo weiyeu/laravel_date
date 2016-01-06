@@ -12,8 +12,7 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-
-    'failed' => 'Wrong email/password or you did not verified your email',
+    'failed' => '錯誤的密碼或信箱，也有可能是信箱還沒認證唷',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
 ];

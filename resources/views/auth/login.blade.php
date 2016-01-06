@@ -15,8 +15,17 @@
 			<div class="col-sm-offset-3 col-sm-6">
 				<div class="panel panel-default">
 					<div class="panel-body inner">
-						<h4 class="panel-heading col-sm-12" style="text-align:center">:)</h4>
+						<h4 class="panel-heading" style="text-align:center">:)</h4>
+						@if(session('emailConfirmedMessage'))
+                           <p class="alert c-alert-success text-center">{{ session('emailConfirmedMessage') }}</p>
+                        @elseif(session('goToConfirmEmail'))
+                            <p class="alert alert-success text-center">{{ session('goToConfirmEmail') }}</p>
+                        @endif
+						@foreach ($errors->all() as $error)
+                            <p class="alert c-alert-danger text-center">{{ $error }}</p>
+                        @endforeach
 						<form role="form" method="post">
+						    {!! csrf_field() !!}
 							<!-- Email -->
 							<div class="form-group">
 								<label class="control-label" for="email">*信箱:</label>

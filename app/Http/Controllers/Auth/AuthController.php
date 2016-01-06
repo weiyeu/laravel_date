@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Response;
 use Validator;
-use DB, Mail, Redirect, Session, App;
+use DB, Mail, Redirect, Session, App, Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -27,7 +27,7 @@ class AuthController extends Controller
 
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
-    protected $redirectPath = 'home';
+    protected $redirectPath = 'users/login';
     protected $loginPath = 'users/login';
     protected $failed_errors = '你在盜帳號嗎小垃圾?';
     protected $request;
@@ -35,23 +35,12 @@ class AuthController extends Controller
     /**
      * Create a new authentication controller instance.
      *
-     * @return void
      */
     public function __construct(Request $request)
     {
         $this->middleware('guest', ['except' => 'getLogout']);
         $this->request = $request;
     }
-
-//    public function getRegister()
-//    {
-//        return view('auth.register');
-//    }
-//
-//    public function postRegister()
-//    {
-//        return redirect()->back();
-//    }
 
     /**
      * Get a validator for an incoming registration request.
@@ -116,6 +105,70 @@ class AuthController extends Controller
     }
 
     /**
+     * @Override
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+//        Auth::login($this->create($request->all()));
+          // just create user, but don't login; by WeiYeu
+          $this->create($request->all());
+
+        return redirect($this->redirectPath())->with('goToConfirmEmail','記得去信箱確認連結才可以成功登入了唷');
+    }
+
+    /**
+     * @Override
+     * Handle a login request to the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function login(Request $request)
+    {
+        $this->validate($request, [
+            $this->loginUsername() => 'required', 'password' => 'required',
+        ]);
+
+        // If the class is using the ThrottlesLogins trait, we can automatically throttle
+        // the login attempts for this application. We'll key this by the username and
+        // the IP address of the client making these requests into this application.
+        $throttles = $this->isUsingThrottlesLoginsTrait();
+
+        if ($throttles && $this->hasTooManyLoginAttempts($request)) {
+            return $this->sendLockoutResponse($request);
+        }
+
+        $credentials = $this->getCredentials($request);
+        // add by WeiYeu to check user confirmed or not
+        $credentials['confirmed'] = true;
+
+        if (Auth::guard($this->getGuard())->attempt($credentials, $request->has('remember'))) {
+            return $this->handleUserWasAuthenticated($request, $throttles);
+        }
+
+        // If the login attempt was unsuccessful we will increment the number of attempts
+        // to login and redirect the user back to the login form. Of course, when this
+        // user surpasses their maximum number of attempts they will get locked out.
+        if ($throttles) {
+            $this->incrementLoginAttempts($request);
+        }
+
+        return $this->sendFailedLoginResponse($request);
+    }
+
+    /**
      * Verify the user's email address by check confirmation code
      *
      * @param  String $confirmation_code
@@ -132,8 +185,8 @@ class AuthController extends Controller
         $user->confirmed = 1;
         $user->confirmation_code = null;
         $user->save();
-        Session::flash('emailConfirmedMessage', 'Thanks for your email confirmation! You may login now :)');
-        return Redirect::to('users/login');
+//        Session::flash('emailConfirmedMessage', 'Thanks for your email confirmation! You may login now :)');
+        return redirect('users/login')->with('emailConfirmedMessage', '感謝您的申請，現在可以登入了唷');
     }
 
     /**

@@ -215,7 +215,7 @@ class AuthController extends Controller
     protected function processUploadedImg(Request $request)
     {
         $destinationPath = "C:\\xampp\\htdocs\\laravel_date\\public\\resource\\profile_image";
-        $file_name = uniqid("upload").'.jpg';
+        $file_name = date('Y-m-d-H-i-s').uniqid("upload").'.jpg';
         $path = 'path is not set';
         if ($request->hasFile('uploadImg')) {
             $imgFile = $request->file('uploadImg');

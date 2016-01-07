@@ -1,6 +1,7 @@
 <?php
 namespace App\Library;
-
+use InvalidArgumentException;
+use RuntimeException;
 class ImageManipulator
 {
     /**

@@ -219,11 +219,14 @@ class AuthController extends Controller
         $path = 'path is not set';
         if ($request->hasFile('uploadImg')) {
             $imgFile = $request->file('uploadImg');
+            // instance imageManipulator
+            $imageManipulator = new ImageManipulator($imgFile->getPathname());
             // check image file or not
-            if(getimagesize($imgFile->getPathname()) !== false){
-//                dd(getimagesize($imgFile->getPathname()));
+            $imgArray = getimagesize($imgFile->getPathname());
+            if($imgArray !== false){
+                dd($imgArray);
             }else{
-                dd(getimagesize($imgFile->getPathname()));
+                dd($imgArray);
             }
             $path = $request->file('uploadImg')->move($destinationPath,$file_name);
         }

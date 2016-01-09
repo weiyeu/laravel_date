@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Image;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Library\ImageManipulator;
@@ -26,9 +27,15 @@ class ImageController extends Controller
      */
     protected $imageManipulator;
 
+    /**
+     * @var String
+     */
+    protected $basePath = "C:\\xampp\\htdocs\\laravel_date\\public\\resource\\";
+
+
     public function ajaxUploadImage(Request $request)
     {
-        // check image is uploaded or not
+        //-- check image is uploaded or not --
         if ($request->hasFile('uploadImg')) {
 
             // get image file
@@ -41,18 +48,35 @@ class ImageController extends Controller
             if (!$this->checkImage($this->imgPathname)) {
                 return response()->json(['error' => 'wrongImgType']);
             }
-
-            // instance imageManipulator
-            $this->$imageManipulator = new ImageManipulator($this->imgPathname);
         } else {
             return response()->json(['error' => 'noUploadImg']);
         }
 
-        // move image to resource folder
+        //-- move image to resource folder --
+        // generate unique file name
+        $file_name = date('Y-m-d-H-i-s') . uniqid("upload") . '.jpg';
 
-        // write record into images table
+        // get image destination
+        $destination = $request->input('destination');
 
-        // return response
+        // move image file to destination
+        $destinationPath = $this->basePath.$destination;
+
+        $movedImgFile = $request->file('uploadImg')->move($destinationPath, $file_name);
+
+        $movedImgPathname = $movedImgFile->getPathname();
+
+        $movedImgUrl = url('resource/'.$destination.'/'.$file_name);
+
+        //-- write record into images table --
+        Image::create([
+            'path' => $movedImgPathname,
+        ]);
+
+        //-- return response --
+        return response()->json([
+            'imgSrc' => $movedImgUrl
+        ]);
 
     }
 

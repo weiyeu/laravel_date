@@ -33,7 +33,7 @@
 								<!-- modal trigger button -->
 								<div class="col-sm-10">
 									<div class="previewContainer" style="margin-left:0">
-										<img id="previewImg" alt="file not found" src="/laravel_date/public/resource/flower.jpg">
+										<img id="smallProfileImg" alt="file not found" src="/laravel_date/public/resource/flower.jpg">
 									</div>
 									<button type="button" class="btn btn-info" data-toggle="modal" data-target="#profileImgModal" data-backdrop="static"><i class="fa fa-user"></i> 更換大頭貼</button>
 								</div>
@@ -52,15 +52,16 @@
 										<!-- body -->
 										<div class="modal-body">
 											<img id="profileImg" alt="file not found" src="/laravel_date/public/resource/flower.jpg">
-											<div class="previewContainer">
+											<div class="previewContainer hidden">
 												<img id="previewImg" alt="file not found" src="/laravel_date/public/resource/flower.jpg">
 											</div>
-											<input type='file' name="uploadImg" id="uploadImg"/>
+										    <input type='file' class="hidden" name="uploadImg" id="uploadImg"/>
 										</div>
 										<!-- footer -->
 										<div class="modal-footer">
 											<button type="button" class="btn btn-info" data-dismiss="modal">取消</button>
-											<button type="button" class="btn btn-primary pull-left" data-dismiss="modal">確定</button>
+											<button type="button" id="selectUploadImg" class="btn btn-primary pull-left" data-dismiss="">選擇圖片</button>
+											<button type="button" id="confirmUploadImg" class="btn btn-success pull-left hidden" data-dismiss="">確定上傳</button>
 										</div>
 									</div>
 								</div>

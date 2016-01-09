@@ -10,7 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
+// home
 Route::get('/{name}', 'PagesController@home')->where('name','(home)*');
 Route::get('/contact', 'TicketsController@create');
 Route::post('/contact','TicketsController@store');
@@ -20,13 +20,19 @@ Route::get('tickets/{slug}/edit','TicketsController@edit');
 Route::post('tickets/{slug}/edit','TicketsController@update');
 Route::post('tickets/{slug}/delete','TicketsController@destroy');
 Route::post('/comment', 'CommentsController@newComment');
+// users register
 Route::get('users/register', 'Auth\AuthController@getRegister');
 Route::post('users/register', 'Auth\AuthController@postRegister');
+// users ajax
 Route::post('users/ajax-check-input-used', 'Auth\AuthController@ajaxCheckInputUsed');
+Route::post('users/ajax-upload-profile_image','ImageController@ajaxUploadImage');
+// users login/logout
 Route::get('users/logout', 'Auth\AuthController@getLogout');
 Route::get('users/login', 'Auth\AuthController@getLogin');
 Route::post('users/login', 'Auth\AuthController@postLogin');
+// verify user through verification link
 Route::get('register/verify/{confirmation_code}','Auth\AuthController@verifyMail');
+// profile
 Route::get('profile/edit','ProfileController@getProfile');
 Route::post('profile/edit','ProfileController@postProfile');
 Route::get('sendemail', function () {

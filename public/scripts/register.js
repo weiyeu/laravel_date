@@ -1,4 +1,4 @@
-function ajaxValidate(url, _token, data) {
+function ajaxValidate(url, data) {
     return $.ajax({
         method: 'POST',
         url: url,
@@ -67,7 +67,7 @@ function validateInput(node, nodeName, warnIcon, successIcon) {
             'inputName' : inputName
         };
         // ajax check input data is used or not
-        $.when(ajaxValidate(url, _token, ajaxData))
+        $.when(ajaxValidate(url, ajaxData))
             .always(function (data, status, jxhr) {
                 // ajax succeed
                 if (status == 'success') {

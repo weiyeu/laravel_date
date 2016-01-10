@@ -47,13 +47,12 @@ $(function () {
         onChange: preview,
         onSelect: preview,
         disabled: true,
-    }, function(){
+    }, function () {
         profileImgJcrop = this;
     });
 
     // jcrop-holder instance
     var jcropHolder = $('.jcrop-holder');
-
 
 
     // set Jcrop align horizontal middle
@@ -100,6 +99,9 @@ $(function () {
             // show previewImg
             $('.previewContainer.hidden').removeClass('hidden');
 
+            // change selectUploadImg btn text
+            $('#selectUploadImg').text('重新選擇圖片');
+
             // show confirmUpload btn
             $('#confirmUploadImg').removeClass('hidden');
         };
@@ -107,12 +109,19 @@ $(function () {
     });
 
     /** select upload image from local **/
-    $('#selectUploadImg').on('click',function(){
-        $('#uploadImg').click();
+    $('#selectUploadImg').on('click', function () {
+        // reset input file value to prevent onchange event not fired with the same file be selected
+        // fire input file click
+        $('#uploadImg')
+            .val(null)
+            .click();
     });
 
     /** ajax upload image **/
     $('#confirmUploadImg').on('click', function () {
+        // append waiting icon
+        var confirmUploadImg = $(this);
+        $(this).append(' <i class="fa fa-spinner fa-spin"></i>');
         // create formData
         var formData = new FormData();
         // get _token
@@ -137,12 +146,17 @@ $(function () {
                         alert(data['imgSrc']);
                         console.log(data['imgSrc']);
                     }
-                    // hide jcrop and prview img
-                    // add cropped img into modal
+                    // disable jcrop select function
+                    profileImgJcrop.disable();
+
+                    // hide confirmUploadImg btn and remove wating icon
+                    confirmUploadImg.addClass('hidden');
+                    confirmUploadImg.text('確認上傳');
+
                     // close modal
-                    setTimeout(function(){
+                    setTimeout(function () {
                         $('button.close').click();
-                    },1000);
+                    }, 1000);
                 }
                 // ajax fail
                 else {

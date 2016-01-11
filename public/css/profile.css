@@ -10,6 +10,15 @@
     height: 100px;
 }
 
+.smallProfileContainer {
+    overflow: hidden;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 200px;
+    height: 200px;
+}
+
 #profileImg {
     display: block;
     width: 100%;
@@ -20,7 +29,7 @@
     margin: auto;
 }
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px) {
     .jcrop-holder {
         max-width: 100%;
         margin: auto;

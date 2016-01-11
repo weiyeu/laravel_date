@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use App\Library\ImageManipulator;
+use App\Library\ImageProcessor;
 
 class AuthController extends Controller
 {
@@ -26,11 +27,21 @@ class AuthController extends Controller
     */
 
 
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+    use AuthenticatesAndRegistersUsers, ThrottlesLogins, ImageProcessor;
     protected $redirectPath = 'users/login';
     protected $loginPath = 'users/login';
     protected $failed_errors = '你在盜帳號嗎小垃圾?';
     protected $request;
+
+    /**
+     * @var String
+     */
+    protected $imgBasePath = "C:\\xampp\\htdocs\\laravel_date\\public\\resource\\";
+
+    /**
+     * @var String
+     */
+    protected $imgDesitnation = "profile_image";
 
     /**
      * Create a new authentication controller instance.
@@ -73,9 +84,11 @@ class AuthController extends Controller
     protected function create(array $data)
     {
         // process uploaded image
-        $path = $this->processUploadedImg($this->request);
+        $path = $this->UploadImage($this->request);
+
         // generate confirmation code
         $confirmation_code = str_random(30);
+
         // create user
         $user = User::create([
             'nickname' => $data['nickName'],
@@ -91,16 +104,19 @@ class AuthController extends Controller
             'profile_image_path' => '',
             'confirmation_code' => $confirmation_code,
         ]);
+
         // confirmation code for mail
         $data = array(
             'confirmation_code' => $confirmation_code,
         );
+
         // remember to use cmd : 'php artisan queue:listen' to turn on the queue job function
         // mail to user through queue job
         Mail::queue('emails.email_verify', $data, function ($m) {
             $m->from('chenweiyeu@gmail.com', 'Learning Laravel');
             $m->to('chenweiyeu@gmail.com')->subject('Verify your mail');
         });
+
         return $user;
     }
 

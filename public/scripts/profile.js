@@ -27,6 +27,10 @@ $(function () {
     var setSelectArr = [150, 100, 350, 300];
     // profileImg instance
     var profileImg = $('#profileImg');
+    // smallProfileImg instance
+    var smallProfileImg = $('#smallProfileImg');
+    // smallProfileContainer
+    var smallProfileContainer = $('.smallProfileContainer');
     // previewImg instance
     var previewImg = $('#previewImg');
     // previewContainer instance
@@ -34,10 +38,20 @@ $(function () {
     // get previewContainer width and height
     var preivewContainerWidth = previewContainer.width();
     var preivewContainerHeight = previewContainer.height();
+    // get smallProfileImg width and height
+    var smallProfileContainerWidth = smallProfileContainer.width();
+    var smallProfileContainerHeight = smallProfileContainer.height();
 
-    // set profileImg to Jcrop
+    // Jcrop API instance
     var profileImgJcrop;
 
+    // Jcrop selection
+    var selection;
+
+    // local imgSrc
+    var localImgSrc;
+
+    // set profileImg to Jcrop
     profileImg.Jcrop({
         aspectRatio: 1,
         boxWidth: jcropHolderWidth,
@@ -61,16 +75,17 @@ $(function () {
     });
 
     // privew callback funtion
-    function preview(selection) {
+    function preview(c) {
+        // set selection
+        selection = c;
+        // set previewImg
         var scaleX = preivewContainerWidth / (selection.w || 1);
         var scaleY = preivewContainerHeight / (selection.h || 1);
-        previewImg.each(function () {
-            $(this).css({
-                'width': Math.round(scaleX * jcropHolderWidth) + 'px',
-                // 'height' : Math.round(scaleY * jcropHolder.height()) + 'px',
-                'margin-left': '-' + Math.round(scaleX * selection.x) + 'px',
-                'margin-top': '-' + Math.round(scaleY * selection.y) + 'px',
-            });
+        previewImg.css({
+            'width': Math.round(scaleX * jcropHolderWidth) + 'px',
+            // 'height' : Math.round(scaleY * jcropHolder.height()) + 'px',
+            'margin-left': '-' + Math.round(scaleX * selection.x) + 'px',
+            'margin-top': '-' + Math.round(scaleY * selection.y) + 'px',
         });
     }
 
@@ -85,15 +100,18 @@ $(function () {
 
         // onload handler
         reader.onload = function (e) {
+            // set localImgSrc
+            localImgSrc = e.target.result;
+
             // reset Jcrop image
-            profileImgJcrop.setImage(e.target.result);
+            profileImgJcrop.setImage(localImgSrc);
 
             // reset Jcrop select area
             profileImgJcrop.setSelect(setSelectArr);
 
             // set previewImg to uploaded img
             previewImg.each(function () {
-                $(this).attr('src', e.target.result);
+                $(this).attr('src', localImgSrc);
             });
 
             // show previewImg
@@ -102,8 +120,8 @@ $(function () {
             // change selectUploadImg btn text
             $('#selectUploadImg').text('重新選擇圖片');
 
-            // show confirmUpload btn
-            $('#confirmUploadImg').removeClass('hidden');
+            // show confirmCrop btn
+            $('#confirmCrop').removeClass('hidden');
         };
         reader.readAsDataURL(uploadImg);
     });
@@ -116,6 +134,41 @@ $(function () {
             .val(null)
             .click();
     });
+    /** confirm crop **/
+    $('#confirmCrop').on('click', function () {
+        // set the small profile image src
+        $('#smallProfileImg').attr({
+            'src' : localImgSrc,
+        });
+
+        // set the image scale and position
+        var scaleX = smallProfileContainerWidth / (selection.w || 1);
+        var scaleY = smallProfileContainerHeight / (selection.h || 1);
+        smallProfileImg.css({
+            'width': Math.round(scaleX * jcropHolderWidth) + 'px',
+            // 'height' : Math.round(scaleY * jcropHolder.height()) + 'px',
+            'margin-left': '-' + Math.round(scaleX * selection.x) + 'px',
+            'margin-top': '-' + Math.round(scaleY * selection.y) + 'px',
+        });
+
+        // disable Jcrop selection
+        profileImgJcrop.disable();
+
+        // close modal
+        $('button.close').click();
+
+        // hide confirmCrop button
+        $(this).addClass('hidden');
+
+        // transfer to json
+        var jsonSelection = JSON.stringify(selection);
+
+        // set selection into input
+        $('#jcropSelection').val(jsonSelection);
+    });
+
+
+
 
     /** ajax upload image **/
     $('#confirmUploadImg').on('click', function () {
@@ -166,9 +219,4 @@ $(function () {
                 }
             });
     });
-    // event handler
-    // $("button[data-toggle='modal']").click(function(){
-    // 	profileImg.data('Jcrop').setSelect(setSelectArr);
-    // });
-
 });

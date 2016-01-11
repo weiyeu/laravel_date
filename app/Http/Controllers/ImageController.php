@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Image;
+use App\Library\ImageProcessor;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Library\ImageManipulator;
@@ -12,6 +13,7 @@ use Symfony\Component\HttpFoundation\File\File;
 
 class ImageController extends Controller
 {
+    use ImageProcessor;
     /**
      * @var File
      */
@@ -85,30 +87,4 @@ class ImageController extends Controller
 
     }
 
-    protected function checkImage($imgPathname)
-    {
-        // check readable of not
-        if (!(is_readable($imgPathname) && is_file($imgPathname))) {
-            return false;
-        }
-
-        // check image size
-        if (getimagesize($imgPathname) == false) {
-            return false;
-        }
-
-        // list image data
-        list ($this->width, $this->height, $type) = getimagesize($imgPathname);
-
-        // image type array
-        $imgTypes = [IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG];
-
-        // check image type
-        if (!in_array($type, $imgTypes)) {
-            return false;
-        }
-
-        // pass all checks
-        return true;
-    }
 }

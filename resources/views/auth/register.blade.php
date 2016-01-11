@@ -32,11 +32,12 @@
 								<label class="control-label col-sm-2">大頭貼:</label>
 								<!-- modal trigger button -->
 								<div class="col-sm-10">
-									<div class="previewContainer" style="margin-left:0">
+									<div class="smallProfileContainer" style="margin-left:0">
 										<img id="smallProfileImg" alt="file not found" src="/laravel_date/public/resource/flower.jpg">
 									</div>
 									<button type="button" class="btn btn-info" data-toggle="modal" data-target="#profileImgModal" data-backdrop="static"><i class="fa fa-user"></i> 更換大頭貼</button>
 								</div>
+								<input type="text" class="hidden" id="jcropSelection" name="jcropSelection">
 							</div>
 
 							<!-- profileImg modal -->
@@ -61,7 +62,7 @@
 										<div class="modal-footer">
 											<button type="button" class="btn btn-info" data-dismiss="modal">取消</button>
 											<button type="button" id="selectUploadImg" class="btn btn-primary pull-left" data-dismiss="">選擇圖片</button>
-											<button type="button" id="confirmUploadImg" class="btn btn-success pull-left hidden" data-dismiss="">確定上傳</button>
+											<button type="button" id="confirmCrop" class="btn btn-success pull-left hidden" data-dismiss="">確定裁切</button>
 										</div>
 									</div>
 								</div>

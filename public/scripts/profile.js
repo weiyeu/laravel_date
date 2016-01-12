@@ -56,7 +56,7 @@ $(function () {
         aspectRatio: 1,
         boxWidth: jcropHolderWidth,
         keySupport: false,
-        scaledSize: true,
+        scaledSize: false,
         //setSelect: setSelectArr,
         onChange: preview,
         onSelect: preview,
@@ -160,8 +160,16 @@ $(function () {
         // hide confirmCrop button
         $(this).addClass('hidden');
 
+        // create imageCropRect for PHP imagecrop function
+        var imageCropRect ={
+            'x' : selection.x,
+            'y' : selection.y,
+            'width' : selection.w,
+            'height' : selection.h,
+        };
+
         // transfer to json
-        var jsonSelection = JSON.stringify(selection);
+        var jsonSelection = JSON.stringify(imageCropRect);
 
         // set selection into input
         $('#jcropSelection').val(jsonSelection);

@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->integer('date');
             $table->string('phone_number',20)->nullable();
             $table->text('self_introduction')->nullable();
-            $table->string('profile_image_path',500);
+            $table->string('profile_image_path',500)->nullable();
             $table->boolean('confirmed')->default(false);
             $table->string('confirmation_code')->nullable();
             $table->rememberToken();

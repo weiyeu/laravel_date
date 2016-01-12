@@ -34,22 +34,18 @@ class AuthController extends Controller
     protected $request;
 
     /**
-     * @var String
-     */
-    protected $imgBasePath = "C:\\xampp\\htdocs\\laravel_date\\public\\resource\\";
-
-    /**
-     * @var String
-     */
-    protected $imgDesitnation = "profile_image";
-
-    /**
      * Create a new authentication controller instance.
      *
      */
     public function __construct(Request $request)
     {
+        // redirect if not guest
         $this->middleware('guest', ['except' => 'getLogout']);
+
+        // image check
+        $this->middleware('image', ['only' => 'postRegister']);
+
+        // get request
         $this->request = $request;
     }
 
@@ -83,11 +79,9 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        // process uploaded image
-        $path = $this->UploadImage($this->request);
-
         // generate confirmation code
         $confirmation_code = str_random(30);
+        dd($data);
 
         // create user
         $user = User::create([
@@ -101,7 +95,7 @@ class AuthController extends Controller
             'date' => $data['date'],
             'phone_number' => $data['phoneNumber'],
             'self_introduction' => $data['selfIntroduction'],
-            'profile_image_path' => '',
+            'profile_image_path' => $data['profile_image_url'],
             'confirmation_code' => $confirmation_code,
         ]);
 
@@ -124,7 +118,7 @@ class AuthController extends Controller
      * @Override
      * Handle a registration request for the application.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function register(Request $request)
@@ -137,18 +131,36 @@ class AuthController extends Controller
             );
         }
 
-//        Auth::login($this->create($request->all()));
-          // just create user, but don't login; by WeiYeu
-          $this->create($request->all());
+        //-- crop profile image --
+        // temp vars
+        $profile_image_url = null;
 
-        return redirect($this->redirectPath())->with('goToConfirmEmail','記得去信箱確認連結才可以成功登入了唷');
+        // check has uploadImg or not
+        if ($request->hasFile('uploadImg')) {
+
+            // crop profile image
+            $profile_image_url = $this->cropImage(
+                $request->file('uploadImg')->getPathname(),
+                'profile_image',
+                json_decode($request->input('jcropSelection'),true)
+            )['imgUrl'];
+
+        } // no uploadImg
+        else {
+            $profile_image_url = null;
+        }
+
+        // create user
+        $this->create(array_merge($request->all(), ['profile_image_url' => $profile_image_url]));
+
+        return redirect($this->redirectPath())->with('goToConfirmEmail', '記得去信箱確認連結才可以成功登入了唷');
     }
 
     /**
      * @Override
      * Handle a login request to the application.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function login(Request $request)
@@ -218,7 +230,7 @@ class AuthController extends Controller
         // get input type
         $inputName = $request->input('inputName');
         // check email used or not
-        $used = User::where($inputName,$inputUnderCheck)->count() > 0;
+        $used = User::where($inputName, $inputUnderCheck)->count() > 0;
         // response data json
         $arr = array(
             'msg' => 'hello',
@@ -231,7 +243,7 @@ class AuthController extends Controller
     protected function processUploadedImg(Request $request)
     {
         $destinationPath = "C:\\xampp\\htdocs\\laravel_date\\public\\resource\\profile_image";
-        $file_name = date('Y-m-d-H-i-s').uniqid("upload").'.jpg';
+        $file_name = date('Y-m-d-H-i-s') . uniqid("upload") . '.jpg';
         $path = 'path is not set';
         if ($request->hasFile('uploadImg')) {
             $imgFile = $request->file('uploadImg');
@@ -239,12 +251,12 @@ class AuthController extends Controller
             $imageManipulator = new ImageManipulator($imgFile->getPathname());
             // check image file or not
             $imgArray = getimagesize($imgFile->getPathname());
-            if($imgArray !== false){
+            if ($imgArray !== false) {
                 dd($imgArray);
-            }else{
+            } else {
                 dd($imgArray);
             }
-            $path = $request->file('uploadImg')->move($destinationPath,$file_name);
+            $path = $request->file('uploadImg')->move($destinationPath, $file_name);
         }
         return $path;
     }

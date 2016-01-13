@@ -48,6 +48,9 @@ $(function () {
     // Jcrop selection
     var selection;
 
+    // Jcrop unscaled selection
+    var unscaledSelection;
+
     // local imgSrc
     var localImgSrc;
 
@@ -78,14 +81,19 @@ $(function () {
     function preview(c) {
         // set selection
         selection = c;
+
+        // get scaled selection for preivew
+        unscaledSelection = profileImgJcrop.tellScaled();
+
         // set previewImg
-        var scaleX = preivewContainerWidth / (selection.w || 1);
-        var scaleY = preivewContainerHeight / (selection.h || 1);
+        var scaleX = preivewContainerWidth / (unscaledSelection.w || 1);
+        var scaleY = preivewContainerHeight / (unscaledSelection.h || 1);
+
         previewImg.css({
             'width': Math.round(scaleX * jcropHolderWidth) + 'px',
             // 'height' : Math.round(scaleY * jcropHolder.height()) + 'px',
-            'margin-left': '-' + Math.round(scaleX * selection.x) + 'px',
-            'margin-top': '-' + Math.round(scaleY * selection.y) + 'px',
+            'margin-left': '-' + Math.round(scaleX * unscaledSelection.x) + 'px',
+            'margin-top': '-' + Math.round(scaleY * unscaledSelection.y) + 'px',
         });
     }
 
@@ -142,13 +150,13 @@ $(function () {
         });
 
         // set the image scale and position
-        var scaleX = smallProfileContainerWidth / (selection.w || 1);
-        var scaleY = smallProfileContainerHeight / (selection.h || 1);
+        var scaleX = smallProfileContainerWidth / (unscaledSelection.w || 1);
+        var scaleY = smallProfileContainerHeight / (unscaledSelection.h || 1);
         smallProfileImg.css({
             'width': Math.round(scaleX * jcropHolderWidth) + 'px',
             // 'height' : Math.round(scaleY * jcropHolder.height()) + 'px',
-            'margin-left': '-' + Math.round(scaleX * selection.x) + 'px',
-            'margin-top': '-' + Math.round(scaleY * selection.y) + 'px',
+            'margin-left': '-' + Math.round(scaleX * unscaledSelection.x) + 'px',
+            'margin-top': '-' + Math.round(scaleY * unscaledSelection.y) + 'px',
         });
 
         // disable Jcrop selection

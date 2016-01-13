@@ -2,7 +2,7 @@
 /node_modules
 /public/resource/article_image
 /public/resource/profile_image
-/.idea/workspace
+/.idea/workspace.xml
 Homestead.yaml
 Homestead.json
 #.env

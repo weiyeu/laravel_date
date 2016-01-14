@@ -81,7 +81,6 @@ class AuthController extends Controller
     {
         // generate confirmation code
         $confirmation_code = str_random(30);
-        dd($data);
 
         // create user
         $user = User::create([

@@ -106,7 +106,6 @@ class AuthController extends Controller
         // remember to use cmd : 'php artisan queue:listen' to turn on the queue job function
         // mail to user through queue job
         Mail::queue('emails.email_verify', $data, function ($m) {
-            $m->from('chenweiyeu@gmail.com', 'Learning Laravel');
             $m->to('chenweiyeu@gmail.com')->subject('Verify your mail');
         });
 

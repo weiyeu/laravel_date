@@ -45,7 +45,7 @@
 								<button type="button" class="btn btn-primary btn-block"><i class="fa fa-facebook-square"></i> 使用FACEBOOK登入</button>
 							</div>
 						</form>
-						<a href="#">忘記密碼</a>
+						<a href="/laravel_date/public/password/reset">忘記密碼</a>
 						<a href="#" class="pull-right">重新註冊</a>
 					</div>
 				</div>

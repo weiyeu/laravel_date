@@ -2225,12 +2225,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "5f0dfd29ed807e4dacba0ae69c70300ded8050c3"
+                "reference": "02e5b61baedbeb1832702d0feac3174e70c32c74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/5f0dfd29ed807e4dacba0ae69c70300ded8050c3",
-                "reference": "5f0dfd29ed807e4dacba0ae69c70300ded8050c3",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/02e5b61baedbeb1832702d0feac3174e70c32c74",
+                "reference": "02e5b61baedbeb1832702d0feac3174e70c32c74",
                 "shasum": ""
             },
             "require": {
@@ -2288,7 +2288,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2016-01-12 14:43:14"
+            "time": "2016-01-15 14:39:01"
         },
         {
             "name": "doctrine/instantiator",

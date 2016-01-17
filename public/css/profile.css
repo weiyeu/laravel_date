@@ -10,13 +10,17 @@
     height: 100px;
 }
 
-.smallProfileContainer {
+.smallProfileContainer{
     overflow: hidden;
     margin: auto;
     margin-top: 20px;
     margin-bottom: 20px;
     width: 200px;
     height: 200px;
+}
+
+#smallProfileImg{
+    width: 200px;
 }
 
 #profileImg {

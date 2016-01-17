@@ -9,7 +9,7 @@
 @section('content')
 	<div class="container">
 		<div class="jumbotron" >
-			<h1 class="text-center text-bold">登入 <i class="fa fa-heart"></i></h1>
+			<h1 class="text-center text-bold">登入 <i class="fa fa-heart red"></i></h1>
 		</div>
 		<div class="row">
 			<div class="col-sm-offset-3 col-sm-6">

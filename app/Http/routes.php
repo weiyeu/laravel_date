@@ -23,16 +23,16 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('tickets/{slug}/delete', 'TicketsController@destroy');
     Route::post('/comment', 'CommentsController@newComment');
     // users login/logout
-    Route::get('users/logout', 'Auth\AuthController@getLogout');
-    Route::get('users/login', 'Auth\AuthController@getLogin');
-    Route::post('users/login', 'Auth\AuthController@postLogin');
+    Route::get('auth/logout', 'Auth\AuthController@getLogout');
+    Route::get('auth/login', 'Auth\AuthController@getLogin');
+    Route::post('auth/login', 'Auth\AuthController@postLogin');
     // Password Reset Routes...
     Route::get('password/reset/{token?}', 'Auth\PasswordController@showResetForm');
     Route::post('password/email', 'Auth\PasswordController@sendResetLinkEmail');
     Route::post('password/reset', 'Auth\PasswordController@reset');
     // users register
-    Route::get('users/register', 'Auth\AuthController@getRegister');
-    Route::post('users/register', 'Auth\AuthController@postRegister');
+    Route::get('auth/register', 'Auth\AuthController@getRegister');
+    Route::post('auth/register', 'Auth\AuthController@postRegister');
     // users ajax
     Route::post('users/ajax-check-input-used', 'Auth\AuthController@ajaxCheckInputUsed');
     Route::post('users/ajax-upload-profile_image', 'ImageController@ajaxUploadImage');

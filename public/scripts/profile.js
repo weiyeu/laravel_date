@@ -38,7 +38,7 @@ $(function () {
     // get previewContainer width and height
     var preivewContainerWidth = previewContainer.width();
     var preivewContainerHeight = previewContainer.height();
-    // get smallProfileImg width and height
+    // get smallProfileContainer width and height
     var smallProfileContainerWidth = smallProfileContainer.width();
     var smallProfileContainerHeight = smallProfileContainer.height();
 

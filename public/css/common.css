@@ -11,7 +11,7 @@ html{
 	font-weight: bold;
 	color: #000000;
 }
-.fa-heart{
+.fa-heart.red{
 	color: red;
 }
 /*body*/

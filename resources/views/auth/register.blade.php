@@ -95,7 +95,7 @@
 							<div class="form-group">
 								<label class="control-label col-sm-2" for="password">*密碼:</label>
 								<div class="col-sm-10">
-									<input type="password" class="form-control" id="password" name="password" placeholder="密碼最少四個字" minlength="4" required>
+									<input type="password" class="form-control" id="password" name="password" placeholder="密碼最少四個字" minlength="6" required>
 								</div>
 							</div>
 							<!-- confirm password -->
@@ -103,7 +103,7 @@
 								<label class="control-label col-sm-2" for="confirmPassword">*確認密碼:</label>
 								<div class="col-sm-10">
 									<input type="password" class="form-control" id="confirmPassword" name="password_confirmation" placeholder="確認密碼"
-									minlength="4" required>
+									minlength="6" required>
 									<div class="c-alert slide">
 										<i class="fa fa-exclamation-triangle"></i>
 									</div>

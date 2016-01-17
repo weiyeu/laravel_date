@@ -28,7 +28,7 @@ class AuthController extends Controller
 
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins, ImageProcessor;
-    protected $redirectPath = 'users/login';
+    protected $redirectPath = 'home';
     protected $loginPath = 'users/login';
     protected $failed_errors = '你在盜帳號嗎小垃圾?';
     protected $request;

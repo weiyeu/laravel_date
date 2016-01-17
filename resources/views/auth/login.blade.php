@@ -46,7 +46,7 @@
 							</div>
 						</form>
 						<a href="/laravel_date/public/password/reset">忘記密碼</a>
-						<a href="#" class="pull-right">重新註冊</a>
+						<a href="/laravel_date/public/auth/register" class="pull-right">重新註冊</a>
 					</div>
 				</div>
 			</div>

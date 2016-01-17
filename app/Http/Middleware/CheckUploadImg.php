@@ -37,7 +37,7 @@ class CheckUploadImg
                     // check fail, redirect back with errors
                     return back()
                         ->withInput($request->except('uploadImg'))
-                        ->withErrors('小搗蛋~大頭貼只選圖片唷:)');
+                        ->withErrors('小搗蛋 大頭貼只能選圖片唷:)');
                 }
             }
         }

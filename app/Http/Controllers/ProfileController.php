@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Library\ImageProcessor;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Hash;
 
 class ProfileController extends Controller
 {
@@ -106,78 +107,50 @@ class ProfileController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a user's change password
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getChangePassword()
     {
-        //
+        return view('profile.change_password');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
-     * Store a newly created resource in storage.
+     * change a user's password
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function postChangePassword(Request $request)
     {
-        //
+        // get current user
+        $user = auth()->user();
+
+        // validate form
+        $this->validate($request,
+            [
+                'old_password' => 'required|min:4',
+                'new_password' => 'required|min:4|confirmed',
+            ],
+            [
+                'old_password.required' => '舊密碼不可以空白唷',
+                'new_password.required' => '新密碼不可以空白唷',
+                'new_password.confirmed' => '新密碼兩次輸入不一致唷',
+            ]);
+
+        // check old password
+        if(!Hash::check($request->input('old_password'),$user->password)){
+            return back()->withErrors('舊密碼不正卻唷');
+        }
+
+        // update new password
+        $user->update([
+           'password' => bcrypt($request->input('new_password')),
+        ]);
+
+        return back()->with('success', '密碼更換成功');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

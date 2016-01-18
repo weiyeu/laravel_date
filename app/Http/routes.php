@@ -41,6 +41,8 @@ Route::group(['middleware' => 'web'], function () {
     // profile
     Route::get('profile/edit', 'ProfileController@getProfile');
     Route::post('profile/edit', 'ProfileController@postProfile');
+    Route::get('profile/change-password','ProfileController@getChangePassword');
+    Route::post('profile/change-password','ProfileController@postChangePassword');
     Route::get('sendemail', function () {
 
         $data = array(

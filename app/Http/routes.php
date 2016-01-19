@@ -13,7 +13,7 @@
 Route::group(['middleware' => 'web'], function () {
 
     // home
-    Route::get('/{name}', 'PagesController@home')->where('name', '(home)*');
+    Route::get('/{name}', 'PagesController@home')->where('name', '(home)*')->name('home');
     Route::get('/contact', 'TicketsController@create');
     Route::post('/contact', 'TicketsController@store');
     Route::get('/tickets', 'TicketsController@index');
@@ -24,7 +24,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('/comment', 'CommentsController@newComment');
     // users login/logout
     Route::get('auth/logout', 'Auth\AuthController@getLogout');
-    Route::get('auth/login', 'Auth\AuthController@getLogin');
+    Route::get('auth/login', 'Auth\AuthController@getLogin')->name('login');
     Route::post('auth/login', 'Auth\AuthController@postLogin');
     // Password Reset Routes...
     Route::get('password/reset/{token?}', 'Auth\PasswordController@showResetForm');
@@ -43,6 +43,10 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('profile/edit', 'ProfileController@postProfile');
     Route::get('profile/change-password','ProfileController@getChangePassword');
     Route::post('profile/change-password','ProfileController@postChangePassword');
+    // article
+    Route::get('article/edit','ArticleController@getEditArticle');
+    Route::post('article/edit','ArticleController@posttEditArticle');
+
     Route::get('sendemail', function () {
 
         $data = array(

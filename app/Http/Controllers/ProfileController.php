@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Library\ImageProcessor;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Hash;
+use Hash ,Auth;
 
 class ProfileController extends Controller
 {
@@ -125,6 +125,11 @@ class ProfileController extends Controller
      */
     public function postChangePassword(Request $request)
     {
+        // make sure user is authenticated
+        if(!Auth::check()){
+
+        }
+
         // get current user
         $user = auth()->user();
 

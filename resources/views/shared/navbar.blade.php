@@ -13,8 +13,9 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="active"><a href="/laravel_date/public/home"><span class="glyphicon glyphicon-home"></span> 首頁</a></li>
                 @if(Auth::check())
-                <li><a href="/laravel_date/public/profile/edit"><i class="fa fa-cog"></i></span> 個人設定</a></li>
-                <li><a href="/laravel_date/public/auth/mydate"><i class="fa fa-heart"></i></span> 我的約會</a></li>
+                <li><a href="/laravel_date/public/article/edit"><i class="fa fa-pencil"></i> 發表文章</a></li>
+                <li><a href="/laravel_date/public/auth/mydate"><i class="fa fa-heart"></i> 我的約會</a></li>
+                <li><a href="/laravel_date/public/profile/edit"><i class="fa fa-cog"></i> 個人設定</a></li>
                 <li><a href="/laravel_date/public/auth/logout"><span class="glyphicon glyphicon-log-out"></span> 登出</a></li>
                 @else
                 <li><a href="/laravel_date/public/auth/register"><span class="glyphicon glyphicon-user"></span>申請帳號</a></li>

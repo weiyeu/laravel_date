@@ -27,7 +27,7 @@
 								<!-- modal trigger button -->
 								<div class="col-sm-10">
 									<div class="smallProfileContainer" style="margin-left:0">
-										<img id="smallProfileImg" alt="file not found" src="{{auth()->user()->profile_image_path}}">
+										<img id="smallProfileImg" alt="file not found" src="{{auth()->user()->profile_image_url}}">
 									</div>
 									<button type="button" class="btn btn-info" data-toggle="modal" data-target="#profileImgModal" data-backdrop="static"><i class="fa fa-user"></i> 更換大頭貼</button>
 								</div>

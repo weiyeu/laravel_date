@@ -29,7 +29,7 @@ class AuthController extends Controller
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins, ImageProcessor;
     protected $redirectPath = 'home';
-    protected $loginPath = 'users/login';
+    protected $loginPath = 'auth/login';
     protected $failed_errors = '你在盜帳號嗎小垃圾?';
     protected $request;
 
@@ -94,7 +94,7 @@ class AuthController extends Controller
             'date' => $data['date'],
             'phone_number' => $data['phoneNumber'],
             'self_introduction' => $data['selfIntroduction'],
-            'profile_image_path' => $data['profile_image_url'],
+            'profile_image_url' => $data['profile_image_url'],
             'confirmation_code' => $confirmation_code,
         ]);
 
@@ -151,7 +151,7 @@ class AuthController extends Controller
         // create user
         $this->create(array_merge($request->all(), ['profile_image_url' => $profile_image_url]));
 
-        return redirect($this->redirectPath())->with('goToConfirmEmail', '記得去信箱確認連結才可以成功登入了唷');
+        return redirect($this->loginPath)->with('goToConfirmEmail', '記得去信箱確認連結才可以成功登入了唷');
     }
 
     /**
@@ -212,7 +212,7 @@ class AuthController extends Controller
         $user->confirmation_code = null;
         $user->save();
 //        Session::flash('emailConfirmedMessage', 'Thanks for your email confirmation! You may login now :)');
-        return redirect('users/login')->with('emailConfirmedMessage', '感謝您的申請，現在可以登入了唷');
+        return redirect($this->loginPath)->with('emailConfirmedMessage', '感謝您的申請，現在可以登入了唷');
     }
 
     /**

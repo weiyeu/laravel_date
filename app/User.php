@@ -43,7 +43,7 @@ class User extends Model implements AuthenticatableContract,
         'date',
         'phone_number',
         'self_introduction',
-        'profile_image_path',
+        'profile_image_url',
         'confirmed',
         'confirmation_code'
     ];

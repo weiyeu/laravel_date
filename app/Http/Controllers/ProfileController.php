@@ -99,7 +99,7 @@ class ProfileController extends Controller
             'date' => $data['date'],
             'phone_number' => $data['phoneNumber'],
             'self_introduction' => $data['selfIntroduction'],
-            'profile_image_path' => $profile_image_url,
+            'profile_image_url' => $profile_image_url,
         ]);
 
         // return the same page

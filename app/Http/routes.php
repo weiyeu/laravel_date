@@ -45,7 +45,10 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('profile/change-password','ProfileController@postChangePassword');
     // article
     Route::get('article/edit','ArticleController@getEditArticle');
-    Route::post('article/edit','ArticleController@posttEditArticle');
+    Route::post('article/edit','ArticleController@postEditArticle');
+    Route::get('article/p/{article_id}','ArticleController@getArticle');
+    Route::get('forum','ArticleController@getForum');
+
 
     Route::get('sendemail', function () {
 

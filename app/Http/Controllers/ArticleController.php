@@ -10,17 +10,22 @@ use App\Http\Controllers\Controller;
 class ArticleController extends Controller
 {
     /**
-     * Create a new authentication controller instance.
+     * Create a new article controller instance.
      *
      */
     public function __construct()
     {
         // redirect if not auth
-        $this->middleware('auth');
+        $this->middleware('auth',[
+            'only' => [
+                'getEditArticle',
+                'postEditArticle',
+            ]
+        ]);
     }
 
     /**
-     * Handle a registration request for the application.
+     * show the edit article form
      *
      * @return \Illuminate\Http\Response
      */
@@ -28,7 +33,31 @@ class ArticleController extends Controller
         return view('articles/edit_article');
     }
 
-    public function postEditArticle(){
+    /**
+     * post the article to server
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function postEditArticle(Request $request){
 
+    }
+
+    /**
+     * show front page of forum
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getForum(){
+        return view('articles.forum');
+    }
+
+    /**
+     * show the specific article
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getArticle(){
+        return view('articles.article');
     }
 }

@@ -17,7 +17,8 @@
 		<div class="row">
 			<div class="panel panel-default">
 				<div class="panel-body inner">
-					<form class="form-horizontal">
+					<form class="form-horizontal" method="post" enctype="multipart/form-data">
+                        {!! csrf_field() !!}
 						<!-- article title -->
 						<div class="form-group">
 							<label class="control-label col-sm-1" for="title">標題:</label>
@@ -26,7 +27,7 @@
 							</div>
 						</div>
 						<!-- insert img modal button -->
-						<div class="form-group">
+						<div class="form-group" >
 							<div class="col-sm-offset-1 col-sm-11">
 								<button type="button" class="btn btn-info" data-toggle="modal" data-target="#insertImgModal"><i class="fa fa-picture-o"></i> 插入圖片</button>
 							</div>
@@ -85,11 +86,12 @@
 								<div class="form-control editable" id="editableContent" contenteditable="true" style="width:100%;height:500px;overflow:auto" id="content"></div>
 							</div>
 						</div>
+						<input type="text" id="articleContent" name="article_content" class="hidden">
 						<!-- article type -->
 						<div class="form-group">
 							<label class="control-label col-sm-1" for="articleType">文章分類:</label>
 							<div class="col-sm-11">
-								<select class="form-control" id="articleType">
+								<select class="form-control" id="articleType" name="article_type">
 									<option>未分類</option>
 									<option>餐後心情</option>
 									<option>美食分享</option>
@@ -102,8 +104,8 @@
 						<!-- subimt button -->
 						<div class="form-group">
 							<div class="col-sm-11 col-sm-offset-1">
-								<input type="submit" class="btn btn-default" value="發表">
-								<input type="submit" class="btn btn-default" value="取消">
+								<button type="submit" id="submit" class="btn btn-default">確定發表</button>
+								<button type="button" id="cancel" class="btn btn-default">取消</button>
 							</div>
 						</div>
 					</form>

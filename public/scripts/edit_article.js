@@ -184,4 +184,13 @@ $(function(){
 			alert('妳/你還沒有選取任何圖片唷');
 		}
 	});
-})
+
+   /* submit */
+    $('#submit').click(function(){
+        // get the contentEditable html
+        var editableContentHtml = $('#editableContent').html();
+
+        // insert html into hidden input articleContent
+        $('#articleContent').val(editableContentHtml);
+    });
+});

@@ -19,11 +19,14 @@
 				<div class="panel-body inner">
 					<form class="form-horizontal" method="post" enctype="multipart/form-data">
                         {!! csrf_field() !!}
+                        @foreach ($errors->all() as $error)
+                            <p class="alert alert-danger">{{ $error }}</p>
+                        @endforeach
 						<!-- article title -->
 						<div class="form-group">
 							<label class="control-label col-sm-1" for="title">標題:</label>
 							<div class="col-sm-11">
-								<input type="text" class="form-control" id="title" placeholder="">
+								<input type="text" class="form-control" id="title" name="title" placeholder="" value="{{ old('title') }}">
 							</div>
 						</div>
 						<!-- insert img modal button -->
@@ -83,7 +86,7 @@
 						<div class="form-group">
 							<label class="control-label col-sm-1" for="content">內文:</label>
 							<div class="col-sm-11">
-								<div class="form-control editable" id="editableContent" contenteditable="true" style="width:100%;height:500px;overflow:auto" id="content"></div>
+								<div class="form-control editable" id="editableContent" contenteditable="true" style="width:100%;height:500px;overflow:auto" id="content">{{old('article_content')}}</div>
 							</div>
 						</div>
 						<input type="text" id="articleContent" name="article_content" class="hidden">
@@ -92,12 +95,13 @@
 							<label class="control-label col-sm-1" for="articleType">文章分類:</label>
 							<div class="col-sm-11">
 								<select class="form-control" id="articleType" name="article_type">
-									<option>未分類</option>
-									<option>餐後心情</option>
-									<option>美食分享</option>
-									<option>美妙旋律</option>
-									<option>我想抒發</option>
-									<option>時尚潮流</option>
+									<option disabled selected>未分類</option>
+									<option value="1">餐後心情</option>
+									<option value="2">美食分享</option>
+									<option value="3">美妙旋律</option>
+									<option value="4">我想抒發</option>
+									<option value="5">時尚潮流</option>
+									<option value="6">隨便亂發</option>
 								</select>
 							</div>
 						</div>

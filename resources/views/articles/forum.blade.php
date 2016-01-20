@@ -109,40 +109,40 @@
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<h1>今日熱門</h1>
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th class="col-sm-4">標題</th>
-									<th class="col-sm-3">作者</th>
-									<th class="col-sm-3">分類</th>
-									<th class="col-sm-1"><span class="glyphicon glyphicon-comment" style="color:gray"></span></th>
-									<th class="col-sm-1"><span class="glyphicon glyphicon-heart" style="color:gray"></span></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="info click-row" data-href="/laravel_date/public/article/p/123">
-									<td>第一次跟女生吃飯</td>
-									<td>煞氣a小明</td>
-									<td>餐後心情</td>
-									<td>2350</td>
-									<td>1822</td>
-								</tr>
-								<tr>
-									<td>吃完飯就沒下文了...</td>
-									<td>BWS夠狂</td>
-									<td>我想抒發</td>
-									<td>2150</td>
-									<td>1622</td>
-								</tr>
-								<tr class="info">
-									<td>活大自助餐真美味</td>
-									<td>電機狂人</td>
-									<td>美食分享</td>
-									<td>1232</td>
-									<td>822</td>
-								</tr>
-							</tbody>
-						</table>
+						<div class="c-table table-header">
+                            <div class="col-sm-4 table-cell">標題</div>
+                            <div class="col-sm-3 table-cell">作者</div>
+                            <div class="col-sm-3 table-cell">分類</div>
+                            <div class="col-sm-1 table-cell"><i class="fa fa-commenting"></i></div>
+                            <div class="col-sm-1 table-cell"><i class="fa fa-heart"></i></div>
+						</div>
+						<a href="#">
+						    <div class="c-table table-row">
+                                <div class="col-sm-4 table-cell">第一次跟女生吃飯</div>
+                                <div class="col-sm-3 table-cell">煞氣a小明</div>
+                                <div class="col-sm-3 table-cell">餐後心情</div>
+                                <div class="col-sm-1 table-cell">2350</div>
+                                <div class="col-sm-1 table-cell">1822</div>
+                            </div>
+                        </a>
+						<a href="#">
+						    <div class="c-table table-row">
+                                <div class="col-sm-4 table-cell">吃完飯就沒下文了...</div>
+                                <div class="col-sm-3 table-cell">BWS夠狂</div>
+                                <div class="col-sm-3 table-cell">我想抒發</div>
+                                <div class="col-sm-1 table-cell">2150</div>
+                                <div class="col-sm-1 table-cell">1622</div>
+                            </div>
+                        </a>
+						<a href="#">
+						    <div class="c-table table-row">
+                                <div class="col-sm-4 table-cell">活大自助餐真美味</div>
+                                <div class="col-sm-3 table-cell">電機狂人</div>
+                                <div class="col-sm-3 table-cell">美食分享</div>
+                                <div class="col-sm-1 table-cell">1232</div>
+                                <div class="col-sm-1 table-cell">822</div>
+                            </div>
+                        </a>
 					</div>
 				</div>
 			</div>

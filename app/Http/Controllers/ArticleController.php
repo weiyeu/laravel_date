@@ -10,6 +10,15 @@ use App\Article;
 
 class ArticleController extends Controller
 {
+    protected $article_type_hash = [
+        1 => '餐後心情',
+        2 => '美食分享',
+        3 => '美妙旋律',
+        4 => '我想抒發',
+        5 => '時尚潮流',
+        6 => '隨便亂發',
+    ];
+
     /**
      * Create a new article controller instance.
      *
@@ -81,7 +90,14 @@ class ArticleController extends Controller
      */
     public function getForum()
     {
-        return view('articles.forum');
+        // get articles
+        $articles = Article::orderBy('updated_at', 'desc')->take(10)->get();
+
+        // return view with articles
+        return view('articles.forum', [
+            'articles' => $articles,
+            'article_type_hash' => $this->article_type_hash,
+        ]);
     }
 
     /**
@@ -89,8 +105,12 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getArticle()
+    public function getArticle($article_id)
     {
-        return view('articles.article');
+        // return specific article with article model
+        return view('articles.article', [
+            'article' => Article::whereId($article_id)->first(),
+            'article_type_hash' => $this->article_type_hash,
+        ]);
     }
 }

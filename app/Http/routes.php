@@ -35,7 +35,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('auth/register', 'Auth\AuthController@postRegister');
     // users ajax
     Route::post('users/ajax-check-input-used', 'Auth\AuthController@ajaxCheckInputUsed');
-    Route::post('users/ajax-upload-profile_image', 'ImageController@ajaxUploadImage');
+    Route::post('users/ajax-upload-image', 'ImageController@ajaxUploadImage');
     // verify user through verification link
     Route::get('register/verify/{confirmation_code}', 'Auth\AuthController@verifyMail');
     // profile

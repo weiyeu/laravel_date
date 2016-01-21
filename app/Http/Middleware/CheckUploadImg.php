@@ -21,14 +21,14 @@ class CheckUploadImg
         // ajax upload
         if ($request->ajax()) {
             // check upload image
-            if (!$request->hasFile('uploadImg') ||
-                !$this->checkImage($request->file('uploadImg'))
-            ) {
-                // return json data with error message
-                return response()->json(['error' => 'WrongImgType']);
+            if (!$request->hasFile('uploadImg')) {
+                // return json data with error message noImgUpload
+                return response()->json(['error' => 'noUploadImg']);
+            } else if (!$this->checkImage($request->file('uploadImg'))) {
+                // return json data with error message wrongImgType
+                return response()->json(['error' => 'wrongImgType']);
             }
-        }
-        // html form upload
+        } // html form upload
         else {
             // check has uploadImg or not
             if ($request->hasFile('uploadImg')) {

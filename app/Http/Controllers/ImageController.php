@@ -34,52 +34,30 @@ class ImageController extends Controller
      */
     protected $basePath = "C:\\xampp\\htdocs\\laravel_date\\public\\resource\\";
 
+    /**
+     * Create a new authentication controller instance.
+     *
+     */
+    public function __construct()
+    {
+        // image check
+        $this->middleware('image');
+    }
 
     public function ajaxUploadImage(Request $request)
     {
-        //-- check image is uploaded or not --
-        if ($request->hasFile('uploadImg')) {
-
-            // get image file
-            $this->imgFile = $request->file('uploadImg');
-
-            // get image path name
-            $this->imgPathname = $this->imgFile->getPathname();
-
-            // check image file
-            if (!$this->checkImage($this->imgPathname)) {
-                return response()->json(['error' => 'wrongImgType']);
-            }
-        } else {
-            return response()->json(['error' => 'noUploadImg']);
-        }
-
         //-- move image to resource folder --
-        // generate unique file name
-        $file_name = date('Y-m-d-H-i-s') . uniqid("upload") . '.jpg';
-
-        // get image destination
-        $destination = $request->input('destination');
-
-        // move image file to destination
-        $destinationPath = $this->basePath.$destination;
-
-        $movedImgFile = $request->file('uploadImg')->move($destinationPath, $file_name);
-
-        $movedImgPathname = $movedImgFile->getPathname();
-
-        $movedImgUrl = url('resource/'.$destination.'/'.$file_name);
+        $imgPathArr = $this->moveImage($request->file('uploadImg'),'article_img');
 
         //-- write record into images table --
         Image::create([
-            'path' => $movedImgPathname,
+            'path' => $imgPathArr['imgPathname'],
         ]);
 
         //-- return response --
         return response()->json([
-            'imgSrc' => $movedImgUrl
+            'imgSrc' => $imgPathArr['imgUrl']
         ]);
-
     }
 
     public function ajaxUploadCropImage(Request $request)

@@ -108,7 +108,7 @@
 			<div class="col-sm-offset-1 col-sm-10">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<h1>今日熱門</h1>
+						<h1>最新文章</h1>
 						<div class="c-table table-header">
                             <div class="col-sm-4 table-cell">標題</div>
                             <div class="col-sm-3 table-cell">作者</div>
@@ -116,6 +116,17 @@
                             <div class="col-sm-1 table-cell"><i class="fa fa-commenting"></i></div>
                             <div class="col-sm-1 table-cell"><i class="fa fa-heart"></i></div>
 						</div>
+						@foreach($articles as $article)
+						    <a href="{{'/laravel_date/public/article/p/'.$article->id}}">
+                                <div class="c-table table-row">
+                                    <div class="col-sm-4 table-cell">{{$article->title}}</div>
+                                    <div class="col-sm-3 table-cell">{{$article->user->nickname}}</div>
+                                    <div class="col-sm-3 table-cell">{{$article_type_hash[$article->article_type]}}</div>
+                                    <div class="col-sm-1 table-cell">{{$article->comments}}</div>
+                                    <div class="col-sm-1 table-cell">{{$article->likes}}</div>
+                                </div>
+                            </a>
+						@endforeach
 						<a href="#">
 						    <div class="c-table table-row">
                                 <div class="col-sm-4 table-cell">第一次跟女生吃飯</div>

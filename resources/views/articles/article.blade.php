@@ -17,22 +17,15 @@
 				<!-- panel heading -->
 				<div class="panel-heading">
 					<!-- title -->
-					<h2>第一次跟女生吃飯</h2>
+					<h2>{{$article->title}}</h2>
 				</div>
 				<!-- panel body -->
 				<div class="panel-body">
-					<p>分類 : <span>餐後心情</span>&nbsp&nbsp&nbsp&nbsp 發表時間 : <span>2015/12/22 , 11:32PM</span></p>
-					<span>煞氣a小明</span></p>
+					<p>分類 : <span>{{$article_type_hash[$article->article_type]}}</span>&nbsp&nbsp&nbsp&nbsp 發表時間 : <span>{{$article->updated_at}}</span></p>
+					<span>{{$article->user->nickname}}</span></p>
 					<p class="underline-lightgray"></p>
 					<div class="article-content" >
-						<p>第一次跟女生吃飯，我感到了溫暖</p>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<p>太爽了</p>
+                    {!!$article->article_content!!}
 					</div>
 				</div>
 				<div class="panel-footer" style="text-align:center">

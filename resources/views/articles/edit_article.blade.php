@@ -32,7 +32,7 @@
 						<!-- insert img modal button -->
 						<div class="form-group" >
 							<div class="col-sm-offset-1 col-sm-11">
-								<button type="button" class="btn btn-info" data-toggle="modal" data-target="#insertImgModal"><i class="fa fa-picture-o"></i> 插入圖片</button>
+								<button type="button" id="openModal" class="btn btn-info" data-toggle="modal" data-target="#insertImgModal"><i class="fa fa-picture-o"></i> 插入圖片</button>
 							</div>
 						</div>
 						<!-- profileImg modal -->
@@ -77,7 +77,7 @@
 									<!-- footer -->
 									<div class="modal-footer">
 										<button type="button" id="cancel" class="btn btn-default" data-dismiss="modal">取消</button>
-										<button type="button" id="uploadImgConfirm" class="btn btn-default pull-left" data-dismiss="modal">確定</button>
+										<button type="button" id="uploadImgConfirm" class="btn btn-default pull-left">確定</button>
 									</div>
 								</div>
 							</div>

@@ -30,6 +30,7 @@ class ArticleController extends Controller
             'only' => [
                 'getEditArticle',
                 'postEditArticle',
+                'postComment',
             ]
         ]);
     }
@@ -113,4 +114,5 @@ class ArticleController extends Controller
             'article_type_hash' => $this->article_type_hash,
         ]);
     }
+
 }

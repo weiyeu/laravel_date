@@ -30,7 +30,11 @@
 				</div>
 				<div class="panel-footer" style="text-align:center">
 					<div class="btn-group">
-						<a class="btn btn-default no-jump" data-toggle="slide" data-target="#reply-collapse" href="#"><i class="fa fa-comments"></i> 回覆</a>
+					    @if(Auth::check())
+						<a class="btn btn-default" data-toggle="slide" data-target="#reply-collapse" href="#"><i class="fa fa-comments"></i> 回覆</a>
+						@else
+						<a class="btn btn-default" href="/laravel_date/public/auth/login"><i class="fa fa-comments"></i> 回覆</a>
+						@endif
 						<a class="btn btn-default" href="#"><i class="fa fa-heart"></i> 喜歡</a>
 						<a class="btn btn-default" href="#"><i class="fa fa-shopping-basket"></i> 收藏</a>
 						<a class="btn btn-default" href="#"><i class="fa fa-th-list"></i> 清單</a>

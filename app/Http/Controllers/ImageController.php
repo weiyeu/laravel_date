@@ -47,7 +47,7 @@ class ImageController extends Controller
     public function ajaxUploadImage(Request $request)
     {
         //-- move image to resource folder --
-        $imgPathArr = $this->moveImage($request->file('uploadImg'),'article_img');
+        $imgPathArr = $this->moveImage($request->file('uploadImg'),'article_image');
 
         //-- write record into images table --
         Image::create([

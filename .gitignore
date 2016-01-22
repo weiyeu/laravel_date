@@ -1,7 +1,6 @@
 /vendor
 /node_modules
-/public/resource/article_image
-/public/resource/profile_image
+/public/resource
 /.idea/workspace.xml
 Homestead.yaml
 Homestead.json

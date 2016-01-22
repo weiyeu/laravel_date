@@ -6,11 +6,14 @@ use Illuminate\Http\Request;
 use App\Library\ImageProcessor;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Hash ,Auth;
+use Hash, Auth;
 
 class ProfileController extends Controller
 {
     use ImageProcessor;
+
+    protected $monthArr = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二'];
+    protected $currentYear;
 
     /**
      * Create a new authentication controller instance.
@@ -23,6 +26,9 @@ class ProfileController extends Controller
 
         // image check
         $this->middleware('image', ['only' => 'postProfile']);
+
+        // set current year
+        $this->currentYear = date('Y');
     }
 
     /**
@@ -33,7 +39,11 @@ class ProfileController extends Controller
     public function getProfile()
     {
 
-        return view('profile.profile');
+        return view('profile.profile', [
+            'currentYear' => $this->currentYear,
+            'monthArr' => $this->monthArr,
+            'user' => auth()->user(),
+        ]);
     }
 
     /**
@@ -126,7 +136,7 @@ class ProfileController extends Controller
     public function postChangePassword(Request $request)
     {
         // make sure user is authenticated
-        if(!Auth::check()){
+        if (!Auth::check()) {
 
         }
 
@@ -146,13 +156,13 @@ class ProfileController extends Controller
             ]);
 
         // check old password
-        if(!Hash::check($request->input('old_password'),$user->password)){
+        if (!Hash::check($request->input('old_password'), $user->password)) {
             return back()->withErrors('舊密碼不正卻唷');
         }
 
         // update new password
         $user->update([
-           'password' => bcrypt($request->input('new_password')),
+            'password' => bcrypt($request->input('new_password')),
         ]);
 
         return back()->with('success', '密碼更換成功');

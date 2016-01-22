@@ -86,9 +86,13 @@
 								<label class="control-label col-sm-2" for="sex">性別:</label>
 								<div class="col-sm-10">
 									<select class="form-control" id="sex" name="sex">
-										<option disabled selected>null</option>
-										<option>男</option>
+									@if($user->sex == 'male')
+	                                    <option selected>男</option>
 										<option>女</option>
+									@else
+										<option>男</option>
+										<option selected>女</option>
+									@endif
 									</select>
 								</div>
 							</div>
@@ -98,19 +102,40 @@
 								<!-- year -->
 								<div class="col-sm-4">
 									<select class="form-control" id="year" name="year">
-										<option disabled selected>年</option>
+										<option disabled>年</option>
+										@for($i = $currentYear; $i > $currentYear - 80; $i--)
+										    @if($i == $user->year)
+										    <option selected>{{$i}}</option>
+										    @else
+										    <option>{{$i}}</option>
+										    @endif
+										@endfor
 									</select>
 								</div>
 								<!-- month -->
 								<div class="col-sm-3">
 									<select class="form-control" id="month" name="month">
-										<option disabled selected>月</option>
+										<option disabled>月</option>
+										@foreach($monthArr as $key => $month)
+										    @if(($key + 1) == $user->month)
+										    <option selected>{{$month}}</option>
+										    @else
+										    <option>{{$month}}</option>
+										    @endif
+										@endforeach
 									</select>
 								</div>
 								<!-- date -->
 								<div class="col-sm-3">
 									<select class="form-control" id="date" name="date">
-										<option disabled selected>日</option>
+										<option disabled>日</option>
+										@for($i = 1; $i <= 31; $i++)
+										    @if($i == $user->date)
+										    <option selected>{{$i}}</option>
+										    @else
+										    <option>{{$i}}</option>
+										    @endif
+										@endfor
 									</select>
 								</div>
 							</div>

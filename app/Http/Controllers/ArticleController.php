@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Article;
+use App\Comment;
 
 class ArticleController extends Controller
 {
@@ -31,6 +32,7 @@ class ArticleController extends Controller
                 'getEditArticle',
                 'postEditArticle',
                 'intendedReply',
+                'postComment',
             ]
         ]);
     }
@@ -108,11 +110,15 @@ class ArticleController extends Controller
      */
     public function getArticle($article_id)
     {
+//        foreach(Article::whereId($article_id)->first()->comments as $comment){
+//            dd($comment->user);
+//        }
         // return specific article with article model
         return view('articles.article', [
             'article' => Article::whereId($article_id)->first(),
             'article_type_hash' => $this->article_type_hash,
             'article_id' => $article_id,
+            'user' => auth()->user(),
         ]);
     }
 
@@ -126,6 +132,25 @@ class ArticleController extends Controller
     {
         // if user is authenticated, redirect to the previous page
         return redirect('article/p/'.$article_id);
+    }
+
+    /**
+     * post comment to article
+     *
+     * @param Request $request
+     * @param int $article_id
+     * @return Response
+     */
+    public function postComment(Request $request, $article_id){
+        // create comment
+        Comment::create([
+            'user_id' => auth()->user()->id,
+            'article_id' => $article_id,
+            'comment_content' => $request->input('comment_content'),
+        ]);
+
+        // return the same page
+        return back();
     }
 
 }

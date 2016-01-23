@@ -6,10 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    protected $guarded = ['id'];
+    protected $guarded = ['id','likes'];
 
-    public function ticket()
+    /**
+     * Get the article that owns the comment.
+     */
+    public function article()
     {
-        return $this->belongsTo('App\Ticket');
+        return $this->belongsTo('App\Article');
+    }
+
+    /**
+     * Get the user that owns the comment.
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 }

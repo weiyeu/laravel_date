@@ -122,38 +122,11 @@
                                     <div class="col-sm-4 table-cell">{{$article->title}}</div>
                                     <div class="col-sm-3 table-cell">{{$article->user->nickname}}</div>
                                     <div class="col-sm-3 table-cell">{{$article_type_hash[$article->article_type]}}</div>
-                                    <div class="col-sm-1 table-cell">{{$article->comments}}</div>
-                                    <div class="col-sm-1 table-cell">{{$article->likes}}</div>
+                                    <div class="col-sm-1 table-cell">{{$article->num_of_comments}}</div>
+                                    <div class="col-sm-1 table-cell">{{$article->num_of_likes}}</div>
                                 </div>
                             </a>
 						@endforeach
-						<a href="#">
-						    <div class="c-table table-row">
-                                <div class="col-sm-4 table-cell">第一次跟女生吃飯</div>
-                                <div class="col-sm-3 table-cell">煞氣a小明</div>
-                                <div class="col-sm-3 table-cell">餐後心情</div>
-                                <div class="col-sm-1 table-cell">2350</div>
-                                <div class="col-sm-1 table-cell">1822</div>
-                            </div>
-                        </a>
-						<a href="#">
-						    <div class="c-table table-row">
-                                <div class="col-sm-4 table-cell">吃完飯就沒下文了...</div>
-                                <div class="col-sm-3 table-cell">BWS夠狂</div>
-                                <div class="col-sm-3 table-cell">我想抒發</div>
-                                <div class="col-sm-1 table-cell">2150</div>
-                                <div class="col-sm-1 table-cell">1622</div>
-                            </div>
-                        </a>
-						<a href="#">
-						    <div class="c-table table-row">
-                                <div class="col-sm-4 table-cell">活大自助餐真美味</div>
-                                <div class="col-sm-3 table-cell">電機狂人</div>
-                                <div class="col-sm-3 table-cell">美食分享</div>
-                                <div class="col-sm-1 table-cell">1232</div>
-                                <div class="col-sm-1 table-cell">822</div>
-                            </div>
-                        </a>
 					</div>
 				</div>
 			</div>

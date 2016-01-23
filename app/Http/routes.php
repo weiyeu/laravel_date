@@ -47,6 +47,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('article/edit','ArticleController@getEditArticle');
     Route::post('article/edit','ArticleController@postEditArticle');
     Route::get('article/p/{article_id}','ArticleController@getArticle');
+    Route::post('article/p/{article_id}','ArticleController@postComment');
     Route::get('forum','ArticleController@getForum');
     Route::get('article/intend/reply/{article_id}','ArticleController@intendedReply');
 

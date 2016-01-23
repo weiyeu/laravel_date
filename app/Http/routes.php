@@ -48,6 +48,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('article/edit','ArticleController@postEditArticle');
     Route::get('article/p/{article_id}','ArticleController@getArticle');
     Route::get('forum','ArticleController@getForum');
+    Route::get('article/intend/reply/{article_id}','ArticleController@intendedReply');
 
 
     Route::get('sendemail', function () {

@@ -30,7 +30,7 @@ class ArticleController extends Controller
             'only' => [
                 'getEditArticle',
                 'postEditArticle',
-                'postComment',
+                'intendedReply',
             ]
         ]);
     }
@@ -103,7 +103,7 @@ class ArticleController extends Controller
 
     /**
      * show the specific article
-     *
+     * @param int $article_id
      * @return \Illuminate\Http\Response
      */
     public function getArticle($article_id)
@@ -112,7 +112,20 @@ class ArticleController extends Controller
         return view('articles.article', [
             'article' => Article::whereId($article_id)->first(),
             'article_type_hash' => $this->article_type_hash,
+            'article_id' => $article_id,
         ]);
+    }
+
+    /**
+     * user try to reply article without authentication
+     *
+     * @param int $article_id
+     * @return Response
+     */
+    public function intendedReply($article_id)
+    {
+        // if user is authenticated, redirect to the previous page
+        return redirect('article/p/'.$article_id);
     }
 
 }

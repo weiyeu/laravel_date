@@ -140,7 +140,7 @@ class AuthController extends Controller
             $profile_image_url = $this->cropImage(
                 $request->file('uploadImg')->getPathname(),
                 'profile_image',
-                json_decode($request->input('jcropSelection'),true)
+                json_decode($request->input('jcropSelection'), true)
             )['imgUrl'];
 
         } // no uploadImg
@@ -238,6 +238,12 @@ class AuthController extends Controller
         return response()->json($arr);
     }
 
+    /**
+     * Proccess uploaded register profile image
+     *
+     * @param  Request $request
+     * @return File
+     */
     protected function processUploadedImg(Request $request)
     {
         $destinationPath = "C:\\xampp\\htdocs\\laravel_date\\public\\resource\\profile_image";
@@ -257,5 +263,15 @@ class AuthController extends Controller
             $path = $request->file('uploadImg')->move($destinationPath, $file_name);
         }
         return $path;
+    }
+
+    /**
+     * show login form to user and flash intended url into session
+     *
+     * @return Response
+     */
+    public function intendedLogin()
+    {
+        return redirect()->guest('auth/login');
     }
 }

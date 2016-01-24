@@ -27,6 +27,8 @@ class CheckUploadImg
             } else if (!$this->checkImage($request->file('uploadImg'))) {
                 // return json data with error message wrongImgType
                 return response()->json(['error' => 'wrongImgType']);
+            }else if(filesize($request->file('uploadImg')->getPathname()) > 2*(2**20)){
+                return response()->json(['error'=> 'file size is bigger than 2MB']);
             }
         } // html form upload
         else {

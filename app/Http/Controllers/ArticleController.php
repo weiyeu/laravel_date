@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\LikeArticle;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -110,9 +111,6 @@ class ArticleController extends Controller
      */
     public function getArticle($article_id)
     {
-//        foreach(Article::whereId($article_id)->first()->comments as $comment){
-//            dd($comment->user);
-//        }
         // return specific article with article model
         return view('articles.article', [
             'article' => Article::whereId($article_id)->first(),
@@ -131,7 +129,7 @@ class ArticleController extends Controller
     public function intendedReply($article_id)
     {
         // if user is authenticated, redirect to the previous page
-        return redirect('article/p/'.$article_id);
+        return redirect('article/p/' . $article_id);
     }
 
     /**
@@ -141,7 +139,14 @@ class ArticleController extends Controller
      * @param int $article_id
      * @return Response
      */
-    public function postComment(Request $request, $article_id){
+    public function postComment(Request $request, $article_id)
+    {
+        // increment article number of comments
+        $article = Article::whereId($article_id)->first();
+        $article->update([
+            'num_of_comments' => $article->num_of_comments + 1,
+        ]);
+
         // create comment
         Comment::create([
             'user_id' => auth()->user()->id,
@@ -151,6 +156,46 @@ class ArticleController extends Controller
 
         // return the same page
         return back();
+    }
+
+    /**
+     * ajax post like to article
+     *
+     * @param Request $request
+     * @param int $article_id
+     * @return Response
+     */
+    public function ajaxPostLike(Request $request, $article_id)
+    {
+        // check authentication
+        if (!auth()->check()) {
+            return response()->json(['error' => 'user is not authenticated']);
+        }
+
+        // check the user has liked it or not
+        //-- get article
+        $article = Article::whereId($article_id)->first();
+        //-- get current user
+        $user = auth()->user();
+        // user has liked, return liked response
+        if($article->likeArticles()->whereUser_id($user->id)->first()){
+            return response()->json(['error' => 'user has liked this article']);
+        };
+
+
+        // create LikeArticle
+        LikeArticle::create([
+            'user_id' => $user->id,
+            'article_id' => $article_id,
+        ]);
+
+        // increment number of likes
+        $article->update([
+            'num_of_likes' => $article->num_of_likes + 1,
+        ]);
+
+        return response()->json(['num_of_likes' => $article->num_of_likes]);
+
     }
 
 }

@@ -52,6 +52,7 @@ class ImageController extends Controller
         //-- write record into images table --
         Image::create([
             'path' => $imgPathArr['imgPathname'],
+            'user' => auth()->user()->id,
         ]);
 
         //-- return response --

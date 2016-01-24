@@ -53,6 +53,9 @@ $(function () {
 
     // reset uploadImg and drop area at openModal clicked
     $('#openModal').click(function () {
+        // reset input
+        $('input#uploadImg').val(null);
+
         // reset uploadImg
         uploadImg = null;
 
@@ -233,7 +236,7 @@ $(function () {
                             $('button.close').click();
                         }, 1000);
 
-                        alert(data['imgSrc']);
+                        alert('圖片上傳成功!');
                         console.log(data['imgSrc']);
                     }
 

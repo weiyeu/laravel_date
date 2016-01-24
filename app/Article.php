@@ -23,4 +23,12 @@ class Article extends Model
     {
         return $this->hasMany('App\Comment');
     }
+
+    /**
+     * Get the likes that the article has.
+     */
+    public function likeArticles()
+    {
+        return $this->hasMany('App\LikeArticle');
+    }
 }

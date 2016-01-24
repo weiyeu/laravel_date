@@ -50,6 +50,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('article/p/{article_id}','ArticleController@postComment');
     Route::get('forum','ArticleController@getForum');
     Route::get('article/intend/reply/{article_id}','ArticleController@intendedReply');
+    Route::post('article/p/ajax-like/{article_id}','ArticleController@ajaxPostLike');
+
 
 
     Route::get('sendemail', function () {

@@ -27,3 +27,7 @@
 	color: gray;
 	text-align: right;
 }
+/*button*/
+.btn.liked{
+    background: orange;
+}

@@ -111,12 +111,25 @@ class ArticleController extends Controller
      */
     public function getArticle($article_id)
     {
+        // check the user has liked it or not
+        // temp liked variable
+        $liked = null;
+        //-- get article
+        $article = Article::whereId($article_id)->first();
+        //-- get current user
+        $user = auth()->user();
+        // user has liked, return liked response
+        if ($article->likeArticles()->whereUser_id($user->id)->first()) {
+            $liked = 'liked';
+        };
+
         // return specific article with article model
         return view('articles.article', [
             'article' => Article::whereId($article_id)->first(),
             'article_type_hash' => $this->article_type_hash,
             'article_id' => $article_id,
             'user' => auth()->user(),
+            'liked' => $liked,
         ]);
     }
 
@@ -173,25 +186,31 @@ class ArticleController extends Controller
         }
 
         // check the user has liked it or not
+        // temp plus variable
+        $plus = 1;
         //-- get article
         $article = Article::whereId($article_id)->first();
         //-- get current user
         $user = auth()->user();
-        // user has liked, return liked response
-        if($article->likeArticles()->whereUser_id($user->id)->first()){
-            return response()->json(['error' => 'user has liked this article']);
+        // user has liked, decrement num_of_likes
+        if ($article->likeArticles()->whereUser_id($user->id)->first()) {
+            $plus = -1;
         };
 
 
-        // create LikeArticle
-        LikeArticle::create([
-            'user_id' => $user->id,
-            'article_id' => $article_id,
-        ]);
+        // determine to create LikeArticle or deleted liked record
+        if ($plus == 1) {
+            LikeArticle::create([
+                'user_id' => $user->id,
+                'article_id' => $article_id,
+            ]);
+        } else {
+            LikeArticle::whereUser_id($user->id)->whereArticle_id($article_id)->first()->delete();
+        }
 
         // increment number of likes
         $article->update([
-            'num_of_likes' => $article->num_of_likes + 1,
+            'num_of_likes' => $article->num_of_likes + $plus,
         ]);
 
         return response()->json(['num_of_likes' => $article->num_of_likes]);

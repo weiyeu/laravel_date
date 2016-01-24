@@ -32,10 +32,11 @@
 					<div class="btn-group">
 					    @if(Auth::check())
 						<button class="btn btn-default" data-toggle="slide" data-target="#reply-collapse"><i class="fa fa-comments"></i> 回覆</button>
+						<button class="btn btn-default {{$liked}}" id="like" data-article-id="{{$article_id}}"><i class="fa fa-heart"></i> 喜歡 <span>{{$article->num_of_likes}}</span></button>
 						@else
 						<a class="btn btn-default" href="/laravel_date/public/article/intend/reply/{{$article_id}}"><i class="fa fa-comments"></i> 回覆</a>
+						<a class="btn btn-default" href="/laravel_date/public/article/intend/reply/{{$article_id}}"><i class="fa fa-heart"></i> 喜歡 {{$article->num_of_likes}}</a>
 						@endif
-						<button class="btn btn-default" id="like" data-article-id="{{$article_id}}"><i class="fa fa-heart"></i> 喜歡 {{$article->num_of_likes}}</button>
 						<a class="btn btn-default" href="#"><i class="fa fa-shopping-basket"></i> 收藏</a>
 						<a class="btn btn-default" href="#"><i class="fa fa-th-list"></i> 清單</a>
 					</div>

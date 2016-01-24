@@ -119,7 +119,7 @@ class ArticleController extends Controller
         //-- get current user
         $user = auth()->user();
         // user has liked, return liked response
-        if ($article->likeArticles()->whereUser_id($user->id)->first()) {
+        if ($user && $article->likeArticles()->whereUser_id($user->id)->first()) {
             $liked = 'liked';
         };
 
@@ -128,7 +128,7 @@ class ArticleController extends Controller
             'article' => Article::whereId($article_id)->first(),
             'article_type_hash' => $this->article_type_hash,
             'article_id' => $article_id,
-            'user' => auth()->user(),
+            'user' => $user,
             'liked' => $liked,
         ]);
     }

@@ -41,18 +41,29 @@ Route::group(['middleware' => 'web'], function () {
     // profile
     Route::get('profile/edit', 'ProfileController@getProfile');
     Route::post('profile/edit', 'ProfileController@postProfile');
-    Route::get('profile/change-password','ProfileController@getChangePassword');
-    Route::post('profile/change-password','ProfileController@postChangePassword');
+    Route::get('profile/change-password', 'ProfileController@getChangePassword');
+    Route::post('profile/change-password', 'ProfileController@postChangePassword');
     // article
-    Route::get('article/edit','ArticleController@getEditArticle');
-    Route::post('article/edit','ArticleController@postEditArticle');
-    Route::get('article/p/{article_id}','ArticleController@getArticle');
-    Route::post('article/p/{article_id}','ArticleController@postComment');
-    Route::get('forum','ArticleController@getForum');
-    Route::get('article/intend/reply/{article_id}','ArticleController@intendedReply');
-    Route::post('article/p/ajax-like/{article_id}','ArticleController@ajaxPostLike');
+    Route::get('article/edit', 'ArticleController@getEditArticle');
+    Route::post('article/edit', 'ArticleController@postEditArticle');
+    Route::get('article/p/{article_id}', 'ArticleController@getArticle');
+    Route::post('article/p/{article_id}', 'ArticleController@postComment');
+    Route::get('forum', 'ArticleController@getForum');
+    Route::get('article/intend/reply/{article_id}', 'ArticleController@intendedReply');
+    Route::post('article/p/ajax-like/{article_id}', 'ArticleController@ajaxPostLike');
+    Route::get('publish', function () {
+        Redis::publish('test-channel', json_encode(['foo' => 'bar']));
+    });
+    Route::get('fire', function () {
+        // this fires the event
+        event(new App\Events\TestEvent());
+        return "event fired";
+    });
 
-
+    Route::get('testtt', function () {
+        // this checks for the event
+        return view('socket_test');
+    });
 
     Route::get('sendemail', function () {
 

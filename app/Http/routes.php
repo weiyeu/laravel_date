@@ -65,6 +65,12 @@ Route::group(['middleware' => 'web'], function () {
         return view('socket_test');
     });
 
+    Route::get('notify', function () {
+        // this fires the event
+        event(new App\Events\PushNotification(App\User::find(1),'user'));
+        return "notification fired";
+    });
+
     Route::get('sendemail', function () {
 
         $data = array(

@@ -99,14 +99,17 @@ class AuthController extends Controller
         ]);
 
         // confirmation code for mail
-        $data = array(
+        $viewData = array(
             'confirmation_code' => $confirmation_code,
         );
 
+        // tmp email variable for mail fucntion
+        $email = $data['email'];
+
         // remember to use cmd : 'php artisan queue:listen' to turn on the queue job function
         // mail to user through queue job
-        Mail::queue('emails.email_verify', $data, function ($m) {
-            $m->to('chenweiyeu@gmail.com')->subject('Verify your mail');
+        Mail::queue('emails.email_verify', $viewData, function ($m) use ($email) {
+            $m->to($email)->subject('Verify your mail');
         });
 
         return $user;

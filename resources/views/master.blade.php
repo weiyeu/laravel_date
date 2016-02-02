@@ -21,8 +21,15 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <!-- Jcrop -->
     <script src="/laravel_date/public/scripts/jquery.Jcrop.js"></script>
+    @if(Auth::check())
     <!--Socket io-->
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script>
+        Notification.TOKEN = '{{sha1(auth()->user()->id.'|'.auth()->user()->email)}}';
+    </script>
+    <!--Notification-->
+    <script src="/laravel_date/public/scripts/notification_client.js"></script>
+    @endif
     <!-- common javascript -->
     <script type="text/javascript" src="/laravel_date/public/scripts/common.js"></script>
     <!-- custom javascript -->

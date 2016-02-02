@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PushNotification;
 use App\LikeArticle;
 use Illuminate\Http\Request;
 
@@ -160,12 +161,19 @@ class ArticleController extends Controller
             'num_of_comments' => $article->num_of_comments + 1,
         ]);
 
+        //get current user
+        $user = auth()->user();
+
         // create comment
         Comment::create([
-            'user_id' => auth()->user()->id,
+            'user_id' => $user->id,
             'article_id' => $article_id,
             'comment_content' => $request->input('comment_content'),
         ]);
+        // notify the article owner
+        event(new PushNotification(
+            $article->user,
+            $user->nickname . ' 回覆了您的文章 :' . $article->title));
 
         // return the same page
         return back();
@@ -195,7 +203,12 @@ class ArticleController extends Controller
         // user has liked, decrement num_of_likes
         if ($article->likeArticles()->whereUser_id($user->id)->first()) {
             $plus = -1;
-        };
+        } // user hasn't liked, notify the article owner
+        else {
+            event(new PushNotification(
+                $article->user,
+                $user->nickname . ' 喜歡您的文章 : ' . $article->title));
+        }
 
 
         // determine to create LikeArticle or deleted liked record

@@ -13,5 +13,8 @@ var socket = io('http://localhost:3000');
             // increase the power everytime we load test route
             $('#power').text(parseInt($('#power').text()) + parseInt(message.data.power));
         });
+        socket.on('connect',function(message){
+            console.log('connetct!!!'+message);
+        });
 </script>
 @endsection

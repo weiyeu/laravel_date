@@ -10,6 +10,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Article;
 use App\Comment;
+use DB;
 
 class ArticleController extends Controller
 {
@@ -228,6 +229,17 @@ class ArticleController extends Controller
 
         return response()->json(['num_of_likes' => $article->num_of_likes]);
 
+    }
+
+    /**
+     * search article by title
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function searchArticle(Request $request){
+        $sqlResult = DB::select('SELECT * FROM articles WHERE title LIKE ?',['%'.$request->input('search_article').'%']);
+        dd($sqlResult);
     }
 
 }

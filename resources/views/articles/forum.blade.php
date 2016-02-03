@@ -101,11 +101,20 @@
 				</a>
 			</div>
 		</div>
+
 	</div>
+
 	<!-- articles -->
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-offset-1 col-sm-10">
+    			<!-- search article -->
+    			<form class="form-horizontal" method="post">
+                    {!! csrf_field() !!}
+                    <input type="text" class="form-control" style="margin-bottom:1em" id="searchArticle" name="search_article" placeholder="搜尋文章">
+                    <button type="submit" class="btn btn-default">搜尋</button>
+                </form>
+                <!--articles list-->
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<h1>最新文章</h1>

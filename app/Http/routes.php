@@ -51,25 +51,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('forum', 'ArticleController@getForum');
     Route::get('article/intend/reply/{article_id}', 'ArticleController@intendedReply');
     Route::post('article/p/ajax-like/{article_id}', 'ArticleController@ajaxPostLike');
-    Route::get('publish', function () {
-        Redis::publish('test-channel', json_encode(['foo' => 'bar']));
-    });
-    Route::get('fire', function () {
-        // this fires the event
-        event(new App\Events\TestEvent());
-        return "event fired";
-    });
-
-    Route::get('testtt', function () {
-        // this checks for the event
-        return view('socket_test');
-    });
-
-    Route::get('notify', function () {
-        // this fires the event
-        event(new App\Events\PushNotification(App\User::find(1),'user'));
-        return "notification fired";
-    });
+    Route::post('forum', 'ArticleController@searchArticle');
 
     Route::get('sendemail', function () {
 

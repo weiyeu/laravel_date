@@ -15,7 +15,7 @@ class UpdateArticlesTable extends Migration
         Schema::table('articles', function (Blueprint $table) {
             //
         });
-        DB::statement('ALTER TABLE articles ADD FULLTEXT title_index(title)');
+        DB::statement('ALTER TABLE articles ADD FULLTEXT title_index(title) WITH PARSER ngram');
     }
 
     /**

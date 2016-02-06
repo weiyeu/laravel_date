@@ -238,7 +238,8 @@ class ArticleController extends Controller
      * @return Response
      */
     public function searchArticle(Request $request){
-        $sqlResult = DB::select('SELECT * FROM articles WHERE title LIKE ?',['%'.$request->input('search_article').'%']);
+//        $sqlResult = DB::select('SELECT * FROM articles WHERE title LIKE ?',['%'.$request->input('search_article').'%']);
+        $sqlResult = DB::select('SELECT * FROM articles WHERE MATCH(title) AGAINST (?)',[$request->input('search_article')]);
         dd($sqlResult);
     }
 

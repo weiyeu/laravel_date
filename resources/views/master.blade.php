@@ -25,7 +25,9 @@
     <!--Socket io-->
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <script>
-        Notification.TOKEN = '{{sha1(auth()->user()->id.'|'.auth()->user()->email)}}';
+        Notification.roomToken = '{{sha1(auth()->user()->id.'|'.auth()->user()->email)}}';
+        Notification.chatToken = '{{hash_hmac('sha256', auth()->user()->id.'|'.auth()->user()->email, env('SHA256_KEY'))}}';
+        Notification.nickname = '{{auth()->user()->nickname}}';
     </script>
     <!--Notification-->
     <script src="/laravel_date/public/scripts/notification_client.js"></script>

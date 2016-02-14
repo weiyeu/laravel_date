@@ -1,51 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Apply for date</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- bootstrap css -->
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<!-- font-awesom -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-	<!-- common css -->
-	<link rel="stylesheet" type="text/css" href="css/common.css">
-	<!-- custom css -->
-	<link rel="stylesheet" type="text/css" href="css/apply_for_date.css">
-
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<!-- bootstrap javascript -->
-	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	<!-- custom javascript -->
-	<script type="text/javascript" src="scripts/apply_for_date.js"></script>
-</head>
-<body>
-	<!-- navbar -->
-	<nav class="navbar navbar-default">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#homeNavbar">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>                        
-				</button>
-				<a class="navbar-brand" href="#"><i class="fa fa-heart"></i> 一起來晚餐吧!</a>
-			</div>
-			<div class="collapse navbar-collapse" id="homeNavbar">
-				<ul class="nav navbar-nav navbar-right">
-					<li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span> 首頁</a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-info-sign"></span> 關於</a></li>
-					<li><a href="profile.html"><span class="glyphicon glyphicon-user"></span>申請帳號</a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> 登入</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-	<!-- main container -->
+@extends('master')
+@section('title','Apply_for_date')
+@section('custom css')
+<link rel="stylesheet" type="text/css" href="css/apply_for_date.css">
+@endsection
+@section('custom js')
+<script type="text/javascript" src="scripts/apply_for_date.js"></script>
+@endsection
+@section('content')
 	<div class="container">
 		<div class="jumbotron" >
-			<h1 class="text-center text-bold">今晚想要什麼樣的風格呢 <i class="fa fa-heart"></i></h1>
+			<h1 class="text-center text-bold">今晚想要什麼樣的風格呢 <i class="fa fa-heart red"></i></h1>
 		</div>
 		<div class="row">
 			<div class="col-sm-12">
@@ -145,9 +109,4 @@
 			</div>
 		</div>
 	</div>
-	<!-- footer -->
-	<footer class="container-fluid text-center">
-		<p>&copy 2015 Dating</p>
-	</footer>
-</body>
-</html>
+@endsection

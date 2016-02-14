@@ -101,7 +101,7 @@ io.on('connection', function (socket) {
     // join the token and socket into rooms
     socket.on('set-room-token', function (connData) {
         console.log('\'' + this.nickname + '\' join the token into the room : ' + connData.roomToken);
-        this.join('token:' + connData.roomToken);
+        this.join(connData.roomToken);
         this.token = connData.roomToken;
         //console.log(Object.keys(io.nsps['/'].adapter.rooms['token:' + connData.roomToken].sockets));
     });
@@ -125,7 +125,7 @@ io.on('connection', function (socket) {
                 throw err;
             }
             // check friend fail
-            if (!rows) {
+            if (!rows[0]) {
                 // set message
                 connDataToClient.message = '\'' + connData.friendNickname + '\' is not a friend of \'' + localSocket.nickname + '\'';
             }
@@ -133,26 +133,36 @@ io.on('connection', function (socket) {
             else {
                 // set message
                 connDataToClient.message = '\'' + localSocket.nickname + '\' successfully connect to  \'' + connData.friendNickname + '\'';
-                // append friend's nickname and roomToken into socket's chatRooms object
+
+                // create friend's roomToken
                 var friendRoomToken = crypto.createHash('sha1')
                     .update(rows[0].friend_id + '|' + rows[0].friend_email)
                     .digest('hex');
+
                 // debug message
                 console.log('friendRoomToken is ' + friendRoomToken);
 
+                // append friend's nickname and roomToken into socket's chatRooms object
                 localSocket.chatRooms[connData.friendNickname] = friendRoomToken;
             }
             console.log(connDataToClient.message);
             console.log(localSocket.chatRooms);
 
-            io.emit('connect-to-friend', connDataToClient);
+            // tell users that connection is established
+            io.to(localSocket.id)
+                .to(friendRoomToken)
+                .emit('connect-to-friend', connDataToClient);
         });
-        // append the friend's nickname and token into socket's chatRooms object
     });
 // chat message
     socket.on('chat-message', function (message) {
-        console.log('"' + message.name + '" send chat-message : ' + message.message);
-        io.emit('chat-channel', message);
+        // debug message
+        console.log('"' + this.nickname + '" send "' + message.message + '" to "' + message.targetUser + '"');
+
+        // send message to self and targetUser
+        io.to(this.id)
+            .to(this.chatRooms[message.targetUser])
+            .emit('chat-channel', message);
         // check the target user is in chatRooms object or not
 
         // emit message to the target user

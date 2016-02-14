@@ -17,7 +17,9 @@ $(function () {
         console.log('Got the message!!!' + message.data.token);
         alert(message.data.message);
     });
-
+    socket.on('server-notification', function (message) {
+        alert(message);
+    });
     socket.on('connect', function (message) {
         console.log('connetct!!!' + message);
         $('#message_box').append('connected');
@@ -45,7 +47,7 @@ $(function () {
     var interval;
     $('#join-btn').click(function () {
         var connData = {
-            friendNickname: 'Sam'
+            friendNickname: '帥哥一號'
         };
         socket.emit('connect-to-friend', connData);
     });
@@ -98,6 +100,7 @@ $(function () {
         var msg = {
             message: mymessage,
             name: myname,
+            targetUser: '帥哥一號',
             type: 'usermsg',
             color: 'black',
             id: ++id

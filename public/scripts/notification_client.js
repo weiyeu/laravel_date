@@ -1,15 +1,13 @@
 $(function () {
-
-    var chatToken = Notification.chatToken;
-    var nickname = Notification.nickname;
     var connData =
         {
             chatToken: chatToken,
             nickname: nickname,
-            roomToken: Notification.roomToken,
+            roomToken: roomToken,
         }
         ;
     // create socket
+    //var socket = io('http://123.195.55.42:3000', {query: 'token=' + chatToken + '&nickname=' + nickname});
     var socket = io('http://localhost:3000', {query: 'token=' + chatToken + '&nickname=' + nickname});
 
     // on notification channel handler
@@ -45,7 +43,7 @@ $(function () {
 
     var incremental = 0;
     var interval;
-    $('#join-btn').click(function () {
+    $('#join-btn').on('click', function () {
         var connData = {
             friendNickname: '帥哥一號'
         };
@@ -100,7 +98,7 @@ $(function () {
         var msg = {
             message: mymessage,
             name: myname,
-            targetUser: '帥哥一號',
+            targetUser: myname,
             type: 'usermsg',
             color: 'black',
             id: ++id

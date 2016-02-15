@@ -102,7 +102,7 @@ io.on('connection', function (socket) {
     socket.on('set-room-token', function (connData) {
         console.log('\'' + this.nickname + '\' join the token into the room : ' + connData.roomToken);
         this.join(connData.roomToken);
-        this.token = connData.roomToken;
+        this.roomToken = connData.roomToken;
         //console.log(Object.keys(io.nsps['/'].adapter.rooms['token:' + connData.roomToken].sockets));
     });
     socket.on('connect-to-friend', function (connData) {
@@ -144,21 +144,32 @@ io.on('connection', function (socket) {
 
                 // append friend's nickname and roomToken into socket's chatRooms object
                 localSocket.chatRooms[connData.friendNickname] = friendRoomToken;
+
+                // append owner's nickname and roomToken to the target user
+                console.log('==================');
+                console.log(Object.keys(io.nsps['/'].adapter.rooms[friendRoomToken].sockets));
+                var targetSocketId = Object.keys(io.nsps['/'].adapter.rooms[friendRoomToken].sockets);
+                var targetSocket = io.sockets.connected[targetSocketId];
+                console.log(io.sockets.connected[targetSocketId]);
+                targetSocket.chatRooms[localSocket.nickname] = localSocket.roomToken;
+                console.log('==================');
+
+                // tell users that connection is established
+                io.to(localSocket.id)
+                    .to(friendRoomToken)
+                    .emit('connect-to-friend', connDataToClient);
             }
             console.log(connDataToClient.message);
             console.log(localSocket.chatRooms);
 
-            // tell users that connection is established
-            io.to(localSocket.id)
-                .to(friendRoomToken)
-                .emit('connect-to-friend', connDataToClient);
+
         });
     });
 // chat message
     socket.on('chat-message', function (message) {
         // debug message
         console.log('"' + this.nickname + '" send "' + message.message + '" to "' + message.targetUser + '"');
-
+        console.log('target user roomTokens is ' + this.chatRooms[message.targetUser]);
         // send message to self and targetUser
         io.to(this.id)
             .to(this.chatRooms[message.targetUser])

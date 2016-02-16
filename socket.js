@@ -47,22 +47,21 @@ redis.on('message', function (channel, message) {
     if (channel == 'notification-channel') {
         io.to('token:' + message.data.token).emit(channel + ':' + message.event, message);
     }
-    // user chatting
-    else if (channel == 'chat-channel') {
-        io.emit(channel, message);
-    }
-    else {
-        io.emit(channel + ':' + message.event, message);
-    }
 });
+
+// authentication middleware
 io.use(function (socket, next) {
-    var token = socket.handshake.query.token;
+    // get user's token and nickname
+    var userToken = socket.handshake.query.userToken;
     var nickname = socket.handshake.query.nickname;
 
-    // debug message
-    console.log(nickname + ' is coming for authentication\nUser   token is ' + token);
-
+    // server generated token
     var sha256Token;
+
+
+    // debug message
+    console.log(nickname + ' is coming for authentication\nUser   token is ' + userToken);
+
     // get current user from mysql
     connection.query('SELECT * FROM users WHERE nickname=\'' + nickname + '\' LIMIT 1', function (err, rows, fields) {
 
@@ -87,7 +86,7 @@ io.use(function (socket, next) {
         socket.chatRooms = {};
 
         // check authentication
-        if (sha256Token == token) {
+        if (sha256Token == userToken) {
             next();
             console.log(nickname + ' pass authentication');
         } else {
@@ -98,13 +97,15 @@ io.use(function (socket, next) {
 });
 
 io.on('connection', function (socket) {
-    // join the token and socket into rooms
+    // join the client into tokenRoom
     socket.on('set-room-token', function (connData) {
         console.log('\'' + this.nickname + '\' join the token into the room : ' + connData.roomToken);
         this.join(connData.roomToken);
         this.roomToken = connData.roomToken;
         //console.log(Object.keys(io.nsps['/'].adapter.rooms['token:' + connData.roomToken].sockets));
     });
+
+    // client connect to friend
     socket.on('connect-to-friend', function (connData) {
         // debug message
         console.log('\'' + this.nickname + '\' is trying to connect to \'' + connData.friendNickname + '\'');
@@ -124,10 +125,15 @@ io.on('connection', function (socket) {
                 console.log('mysql query error!!!\n');
                 throw err;
             }
+
             // check friend fail
             if (!rows[0]) {
                 // set message
                 connDataToClient.message = '\'' + connData.friendNickname + '\' is not a friend of \'' + localSocket.nickname + '\'';
+
+                // tell users that connection is failed
+                io.to(localSocket.id)
+                    .emit('connect-to-friend', connDataToClient);
             }
             // check friend pass
             else {
@@ -161,8 +167,6 @@ io.on('connection', function (socket) {
             }
             console.log(connDataToClient.message);
             console.log(localSocket.chatRooms);
-
-
         });
     });
 // chat message

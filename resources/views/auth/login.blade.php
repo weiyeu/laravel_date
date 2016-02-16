@@ -42,7 +42,7 @@
 							</div>
 							<!-- facebook login button -->
 							<div class="form-group">
-								<button type="button" class="btn btn-primary btn-block"><i class="fa fa-facebook-square"></i> 使用FACEBOOK登入</button>
+								<a href="/laravel_date/public/auth/facebook" class="btn btn-primary btn-block"><i class="fa fa-facebook-square"></i> 使用FACEBOOK登入</a>
 							</div>
 						</form>
 						<a href="/laravel_date/public/password/reset">忘記密碼</a>

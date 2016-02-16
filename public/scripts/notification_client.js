@@ -1,31 +1,40 @@
 $(function () {
+    // get connection data from server script
     var connData =
-        {
-            chatToken: chatToken,
-            nickname: nickname,
-            roomToken: roomToken,
-        }
-        ;
-    // create socket
-    //var socket = io('http://123.195.55.42:3000', {query: 'token=' + chatToken + '&nickname=' + nickname});
-    var socket = io('http://localhost:3000', {query: 'token=' + chatToken + '&nickname=' + nickname});
+    {
+        userToken: userToken,
+        nickname: nickname,
+        roomToken: roomToken
+    };
 
-    // on notification channel handler
-    socket.on("notification-channel:App\\Events\\PushNotification", function (message) {
-        console.log('Got the message!!!' + message.data.token);
-        alert(message.data.message);
-    });
-    socket.on('server-notification', function (message) {
-        alert(message);
-    });
+    // create socket with query string
+    //var socket = io('http://123.195.55.42:3000', {query: 'token=' + userToken + '&nickname=' + nickname});
+    var socket = io('http://localhost:3000', {query: 'userToken=' + userToken + '&nickname=' + nickname});
+
+
+    // connect
     socket.on('connect', function (message) {
         console.log('connetct!!!' + message);
         $('#message_box').append('connected');
         socket.emit('set-room-token', connData);
     });
+
+    // error
     socket.on('error', function (err) {
         console.log('error' + err);
     });
+
+    // user notification
+    socket.on("notification-channel:App\\Events\\PushNotification", function (message) {
+        console.log('notification message' + message.data.token);
+        alert(message.data.message);
+    });
+
+    // server notification
+    socket.on('server-notification', function (message) {
+        alert(message);
+    });
+
     socket.on('connect-to-friend', function (message) {
         alert(message.message);
     });
@@ -34,7 +43,7 @@ $(function () {
     var startDate;
     var startTime;
     var myname;
-// chat functions
+    // chat functions
     $('#message').keypress(function (e) {
         if (e.keyCode == 13) {
             $('#send-btn').click();
@@ -45,7 +54,7 @@ $(function () {
     var interval;
     $('#join-btn').on('click', function () {
         var connData = {
-            friendNickname: '帥哥一號'
+            friendNickname: $('#friendName').val()
         };
         socket.emit('connect-to-friend', connData);
     });
@@ -55,10 +64,10 @@ $(function () {
         startDate = new Date();
         startTime = startDate.getTime();
         var mymessage = $('#message').val(); //get message text
-        myname = $('#name').val(); //get user name
+        var friendName = $('#friendName').val(); //get user name
         var _token = $('input[name=_token]').val();
 
-        if (myname == "") { //empty name?
+        if (friendName == "") { //empty name?
             alert("Enter your Name please!");
             return;
         }
@@ -97,8 +106,8 @@ $(function () {
         //prepare json data
         var msg = {
             message: mymessage,
-            name: myname,
-            targetUser: myname,
+            name: connData.nickname,
+            targetUser: friendName,
             type: 'usermsg',
             color: 'black',
             id: ++id
@@ -136,5 +145,6 @@ $(function () {
 
         $('#message').val(''); //reset text
     });
-});
+})
+;
 

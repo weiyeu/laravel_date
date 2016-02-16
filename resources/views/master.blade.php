@@ -26,7 +26,7 @@
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <script>
         roomToken = '{{sha1(auth()->user()->id.'|'.auth()->user()->email)}}';
-        chatToken = '{{hash_hmac('sha256', auth()->user()->id.'|'.auth()->user()->email, env('SHA256_KEY'))}}';
+        userToken = '{{hash_hmac('sha256', auth()->user()->id.'|'.auth()->user()->email, env('SHA256_KEY'))}}';
         nickname = '{{auth()->user()->nickname}}';
     </script>
     <!--Notification-->

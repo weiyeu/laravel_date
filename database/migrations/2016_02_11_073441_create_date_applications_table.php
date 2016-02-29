@@ -20,7 +20,7 @@ class CreateDateApplicationsTable extends Migration
             $table->integer('end_time')->unsigned();
             $table->string('vegetarian_type');
             $table->string('meal_type');
-            $table->enum('sex_constraint', ['male', 'female']);
+            $table->string('sex_constraint');
             $table->string('dress_code');
             $table->text('message');
             $table->timestamps();

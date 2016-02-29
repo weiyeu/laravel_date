@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class dateApplication extends Model
+class DateApplication extends Model
 {
-    //
+    protected $guarded = ['id'];
 }

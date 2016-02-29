@@ -55,11 +55,12 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('article/p/ajax-like/{article_id}', 'ArticleController@ajaxPostLike');
     Route::post('forum', 'ArticleController@searchArticle');
     // apply for date
-    Route::get('apply_for_date','DateController@getApplyForDate');
+    Route::get('apply_for_date', 'DateController@getApplyForDate');
+    Route::post('apply_for_date', 'DateController@postApplyForDate');
 
     // test
-    Route::get('chat','ChatController@getChat');
-    Route::post('chat','ChatController@ajaxPostChat');
+    Route::get('chat', 'ChatController@getChat');
+    Route::post('chat', 'ChatController@ajaxPostChat');
 
 
     Route::get('sendemail', function () {

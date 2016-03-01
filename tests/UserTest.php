@@ -13,8 +13,11 @@ class UserTest extends TestCase
      */
     public function testExample()
     {
-        // create random users
-        $user = factory(App\User::class, 3)->create();
+//        // create random users
+//        $user = factory(App\User::class, 3)->create();
+
+        // create date application
+        $dateApp = factory(App\DateApplication::class, 10)->create();
 
         // assertion test
         $this->assertTrue(true);

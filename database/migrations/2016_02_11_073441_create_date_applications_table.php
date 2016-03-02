@@ -23,6 +23,7 @@ class CreateDateApplicationsTable extends Migration
             $table->string('sex_constraint');
             $table->string('dress_code');
             $table->text('message');
+            $table->boolean('matched')->default(false);
             $table->timestamps();
         });
         Schema::table('date_applications', function (Blueprint $table) {
